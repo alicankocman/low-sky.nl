@@ -35,7 +35,8 @@ export async function POST(request: NextRequest) {
     const shouldComplete = isAskingForConclusion || conversationDepth >= 6;
 
     // Check if API key is configured
-    if (!process.env.APIFREELLM_KEY) {
+    const groqApiKey = process.env.GROQ_API_KEY;
+    if (!groqApiKey) {
       // Fallback to placeholder
       if (shouldComplete) {
         const report = generatePlaceholderReport(messages);
@@ -83,43 +84,72 @@ Write naturally and warmly. No scores or judgments.`;
 Ask a thoughtful follow-up question about their leadership approach, values, or decision-making. Keep it to 1-2 sentences, warm and conversational.`;
     }
 
-    // Call APIFreeLLM
-    const response = await fetch('https://apifreellm.com/api/v1/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.APIFREELLM_KEY}`
-      },
-      body: JSON.stringify({
-        message: prompt
-      })
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('APIFreeLLM error:', response.status, errorText);
-      throw new Error(`API request failed: ${response.status}`);
-    }
-
-    const responseText = await response.text();
-    if (!responseText) {
-      throw new Error('Empty API response');
-    }
-
-    let data;
-    try {
-      data = JSON.parse(responseText);
-    } catch (parseError) {
-      console.error('JSON parse error:', parseError, 'Response:', responseText);
-      throw new Error('Invalid JSON response from API');
-    }
+    // Call Groq API
+    let assistantMessage: string;
     
-    if (!data || !data.success || !data.response) {
-      console.error('Invalid API response structure:', data);
-      throw new Error('Invalid API response structure');
-    }
+    try {
+      // Build messages array for Groq (OpenAI-compatible format)
+      const systemMessage = {
+        role: 'system',
+        content: SYSTEM_PROMPT
+      };
 
-    const assistantMessage = data.response;
+      const userMessage = {
+        role: 'user',
+        content: prompt
+      };
+
+      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${groqApiKey}`
+        },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile', // Fast and capable model
+          messages: [systemMessage, userMessage],
+          temperature: 0.7,
+          max_tokens: shouldComplete ? 2000 : 300,
+          stream: false
+        })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Groq API error:', response.status, errorText);
+        throw new Error(`Groq API request failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (!data || !data.choices || !data.choices[0] || !data.choices[0].message) {
+        console.error('Invalid Groq API response structure:', data);
+        throw new Error('Invalid Groq API response structure');
+      }
+
+      assistantMessage = data.choices[0].message.content || '';
+      
+      if (!assistantMessage) {
+        throw new Error('Empty response from Groq API');
+      }
+
+    } catch (apiError) {
+      // Fallback to placeholder on any API error
+      console.warn('Groq API call failed, using placeholder:', apiError);
+      assistantMessage = shouldComplete 
+        ? generatePlaceholderReport(messages).content
+        : generatePlaceholderQuestion(conversationDepth);
+      
+      // If completing, return early with placeholder
+      if (shouldComplete) {
+        const report = generatePlaceholderReport(messages);
+        return NextResponse.json({
+          complete: true,
+          report: report.content,
+          program: report.program
+        });
+      }
+    }
 
     // Extract program recommendation if completing
     let program: 'NPL' | 'LIR' | undefined;
