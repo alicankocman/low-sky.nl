@@ -158,6 +158,7 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
 
   // Log conversation abandonment on unmount
   useEffect(() => {
+    const sessionId = sessionIdRef.current; // Capture current value
     return () => {
       if (!isComplete) {
         fetch('/api/analytics', {
@@ -166,7 +167,7 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
           body: JSON.stringify({
             event: 'conversation_abandoned',
             timestamp: new Date().toISOString(),
-            sessionId: sessionIdRef.current
+            sessionId: sessionId // Use captured value
           })
         }).catch(console.error);
       }
@@ -191,13 +192,30 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
         })
       });
 
-      const data = await response.json();
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('API error:', response.status, errorText);
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const responseText = await response.text();
+      if (!responseText) {
+        throw new Error('Empty response from server');
+      }
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error('JSON parse error:', parseError, 'Response:', responseText);
+        throw new Error('Invalid response format');
+      }
 
       if (data.complete) {
         setIsComplete(true);
         setMessages(prev => [...prev, { 
           role: 'assistant', 
-          content: data.report 
+          content: data.report || 'Report generated successfully.'
         }]);
 
         // Log completion with program recommendation
@@ -214,7 +232,7 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
       } else {
         setMessages(prev => [...prev, { 
           role: 'assistant', 
-          content: data.message 
+          content: data.message || 'I understand. Could you tell me more?'
         }]);
       }
     } catch (error) {

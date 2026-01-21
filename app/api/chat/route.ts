@@ -9,8 +9,15 @@ interface Message {
 const SYSTEM_PROMPT = `You are a thoughtful leadership coach having a reflective conversation. Ask open-ended questions about decision-making, responsibility, values, and self-awareness. Be warm and conversational. Keep responses to 1-2 sentences.`;
 
 export async function POST(request: NextRequest) {
+  let messages: Message[] = [];
+  
   try {
-    const { messages } = await request.json();
+    const body = await request.json();
+    messages = body.messages || [];
+
+    if (!Array.isArray(messages) || messages.length === 0) {
+      throw new Error('Invalid messages array');
+    }
 
     // Check if user is asking for conclusion
     const lastUserMessage = messages[messages.length - 1]?.content?.toLowerCase() || '';
@@ -89,13 +96,27 @@ Ask a thoughtful follow-up question about their leadership approach, values, or 
     });
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('APIFreeLLM error:', response.status, errorText);
       throw new Error(`API request failed: ${response.status}`);
     }
 
-    const data = await response.json();
+    const responseText = await response.text();
+    if (!responseText) {
+      throw new Error('Empty API response');
+    }
+
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('JSON parse error:', parseError, 'Response:', responseText);
+      throw new Error('Invalid JSON response from API');
+    }
     
-    if (!data.success || !data.response) {
-      throw new Error('Invalid API response');
+    if (!data || !data.success || !data.response) {
+      console.error('Invalid API response structure:', data);
+      throw new Error('Invalid API response structure');
     }
 
     const assistantMessage = data.response;
@@ -121,13 +142,12 @@ Ask a thoughtful follow-up question about their leadership approach, values, or 
     console.error('Chat API error:', error);
     
     // Fallback to placeholder on error
-    const { messages } = await request.json();
     const conversationDepth = messages.filter((m: Message) => m.role === 'assistant').length;
     
     return NextResponse.json({
       message: generatePlaceholderQuestion(conversationDepth),
       complete: false
-    });
+    }, { status: 200 }); // Always return 200 with fallback
   }
 }
 
