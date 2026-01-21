@@ -42,8 +42,8 @@ export default function ContactPage() {
             <Button href="/programs" variant="primary" size="large">
               View Programs
             </Button>
-            <Button href="/test" variant="ghost" size="large">
-              Take Assessment
+            <Button href="/reflection" variant="ghost" size="large">
+              Start Reflection
             </Button>
           </div>
         </Hero>
