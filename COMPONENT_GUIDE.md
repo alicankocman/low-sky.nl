@@ -355,7 +355,7 @@ interface ProgramCardProps {
   description="A foundational program for emerging leaders who want to build self-awareness, clarify their values, and develop a personal leadership philosophy."
   duration="8 weeks"
   format="Cohort-based"
-  href="/programs/new-personal-leadership"
+  href="/contact"
   delay={0}
 />
 ```

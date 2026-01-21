@@ -38,8 +38,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/test" className="text-base text-ink-500 hover:text-ink-900 transition-colors inline-block">
-                  Self-Discovery
+                <Link href="/reflection" className="text-base text-ink-500 hover:text-ink-900 transition-colors inline-block">
+                  Reflection
                 </Link>
               </li>
               <li>

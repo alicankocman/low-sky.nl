@@ -19,8 +19,8 @@ export default function HomePage() {
           <Button href="/programs" variant="primary" size="large">
             Explore Programs
           </Button>
-          <Button href="/test" variant="secondary" size="large">
-            Begin Self-Discovery
+          <Button href="/reflection" variant="secondary" size="large">
+            Begin Reflection
           </Button>
         </div>
       </Hero>
@@ -91,8 +91,8 @@ export default function HomePage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Button href="/test" variant="primary" size="large">
-                Take the Assessment
+              <Button href="/reflection" variant="primary" size="large">
+                Start the Dialogue
               </Button>
             </motion.div>
           </div>

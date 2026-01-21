@@ -53,7 +53,7 @@ export function ProgramCard({
           </div>
 
           <div className="text-sage-700 group-hover:text-sage-900 transition-colors font-medium">
-            Learn more →
+            Get in Touch →
           </div>
         </div>
       </Link>

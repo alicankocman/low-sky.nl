@@ -11,14 +11,14 @@ const programs = [
     description: "A foundational program for emerging leaders who want to build self-awareness, clarify their values, and develop a personal leadership philosophy. Through guided reflection and practical exercises, you'll discover your unique approach to leadership.",
     duration: '8 weeks',
     format: 'Cohort-based',
-    href: '/programs/new-personal-leadership',
+    href: '/contact',
   },
   {
     title: 'Leadership in Residence',
     description: 'An immersive experience for established leaders seeking deeper transformation. This residency combines intensive self-inquiry, peer learning, and one-on-one mentorship to help you evolve your leadership practice and navigate complex challenges.',
     duration: '6 months',
     format: 'Hybrid',
-    href: '/programs/leadership-in-residence',
+    href: '/contact',
   },
 ]
 
@@ -49,12 +49,12 @@ export default function ProgramsPage() {
             Not sure which program is right for you?
           </h2>
           <p className="text-body-lg text-ink-600 mb-8 leading-relaxed">
-            Start with our self-discovery assessment to gain insight into your leadership style and needs. 
+            Start with our leadership reflection dialogue to gain insight into your leadership style and needs. 
             Or reach out—we're happy to discuss your goals and help you choose.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button href="/test" variant="primary" size="large">
-              Take the Assessment
+            <Button href="/reflection" variant="primary" size="large">
+              Start Reflection
             </Button>
             <Button href="/contact" variant="secondary" size="large">
               Contact Us

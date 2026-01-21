@@ -5,8 +5,10 @@ A premium, calm, and intentional educational platform for leadership development
 ## 🎯 Project Vision
 
 This platform hosts two educational programs focused on personal leadership development:
-1. **New Personal Leadership** - Foundation program for emerging leaders
-2. **Leadership in Residence** - Immersive experience for established leaders
+1. **New Personal Leadership (NPL)** - Foundation program for emerging leaders
+2. **Leadership in Residence (LIR)** - Immersive experience for established leaders
+
+The platform features an **AI-powered leadership reflection dialogue** that helps users discover their leadership patterns through thoughtful conversation, replacing traditional assessment tests.
 
 ## ✨ Design Philosophy
 
@@ -68,22 +70,31 @@ personal-leadership/
 │   ├── globals.css             # Global styles
 │   ├── programs/
 │   │   └── page.tsx            # Programs overview
+│   ├── reflection/
+│   │   └── page.tsx            # AI chatbot landing page
+│   ├── api/
+│   │   ├── chat/
+│   │   │   └── route.ts        # AI conversation API
+│   │   └── analytics/
+│   │       └── route.ts        # Anonymous usage tracking
 │   ├── test/
-│   │   ├── page.tsx            # Personality assessment
+│   │   ├── page.tsx            # [Legacy] Personality assessment
 │   │   └── result/
-│   │       └── page.tsx        # Test results
+│   │       └── page.tsx        # [Legacy] Test results
 │   └── contact/
 │       └── page.tsx            # Contact form
 ├── components/
 │   ├── layout/
 │   │   ├── Navigation.tsx      # Main navigation
 │   │   └── Footer.tsx          # Site footer
-│   └── ui/
-│       ├── Hero.tsx            # Hero section component
-│       ├── Section.tsx         # Content section wrapper
-│       ├── Button.tsx          # Button component
-│       ├── Card.tsx            # Card component
-│       └── ProgramCard.tsx     # Program-specific card
+│   ├── ui/
+│   │   ├── Hero.tsx            # Hero section component
+│   │   ├── Section.tsx         # Content section wrapper
+│   │   ├── Button.tsx          # Button component
+│   │   ├── Card.tsx            # Card component
+│   │   └── ProgramCard.tsx     # Program-specific card
+│   └── chat/
+│       └── ChatInterface.tsx   # AI chatbot interface
 ├── tailwind.config.ts          # Tailwind configuration
 ├── tsconfig.json               # TypeScript configuration
 └── package.json                # Dependencies
@@ -124,27 +135,32 @@ Visit [http://localhost:3000](http://localhost:3000) to see the application.
 - CTA section
 
 ### 2. Programs (`/programs`)
-- Overview of both programs
+- Overview of both programs (NPL & LIR)
 - Program cards with details
-- CTA to assessment or contact
+- CTA to reflection dialogue or contact
 
-### 3. Self-Discovery Test (`/test`)
-- Introduction screen
-- 5-question assessment
-- Progress indicator
-- Navigation controls
+### 3. Leadership Reflection (`/reflection`) ⭐ NEW
+- **AI-powered conversational experience**
+- Landing page with approach explanation
+- Privacy & ethics information
+- ChatGPT-style dialogue interface
+- 4-6 reflective questions about:
+  - Decision-making patterns
+  - Sense of responsibility
+  - Relationship with uncertainty
+  - Self-awareness
+- User can ask follow-up questions
+- Final reflection report with program recommendation
+- **No scoring, testing, or categorization**
 
-### 4. Test Results (`/test/result`)
-- Personality type reveal
-- Strengths breakdown
-- Growth areas
-- Next steps CTA
-
-### 5. Contact (`/contact`)
+### 4. Contact (`/contact`)
 - Contact form
 - Program selection dropdown
 - Success state
 - Alternative contact info
+
+### 5. Legacy Test Pages (`/test`) 
+- [Replaced by /reflection - kept for reference]
 
 ## 🎭 Component Usage
 
@@ -259,19 +275,31 @@ Visit [http://localhost:3000](http://localhost:3000) to see the application.
 
 ### Current State
 - ✅ Complete design system
-- ✅ All 5 core pages implemented
+- ✅ All core pages implemented
 - ✅ Responsive layouts
 - ✅ Animation framework
 - ✅ Component library
+- ✅ AI-powered chatbot system
+- ✅ Anonymous analytics tracking
+- ✅ Markdown-formatted AI responses
+
+### AI Chatbot Features
+- ✅ Reflective leadership conversation (not a test)
+- ✅ ChatGPT-style dialogue interface
+- ✅ Markdown rendering for reports
+- ✅ Privacy-first (no user data stored)
+- ✅ Anonymous usage metrics only
+- ✅ Program recommendations (NPL/LIR)
+- ✅ Mobile-responsive chat UI
+- ✅ Loading and completion states
 
 ### Future Considerations
+- OpenAI/Anthropic API integration (currently placeholder)
 - Form validation and error states
-- Loading states and skeletons
 - 404 and error pages
 - SEO optimization (metadata, sitemap)
-- Analytics integration
-- Backend API integration
 - Email notifications
+- Report download/email functionality
 - User accounts (future phase)
 
 ## 📝 Content Guidelines
@@ -312,7 +340,7 @@ When adding new components or pages:
 3. Add subtle animations with Framer Motion
 4. Test responsive behavior
 5. Ensure accessibility
-6. Update documentation
+6. Update documentation 
 
 ## 📄 License
 
