@@ -19,7 +19,7 @@ export default function HomePage() {
           <Button href="/programs" variant="primary" size="large">
             Explore Programs
           </Button>
-          <Button href="/reflection" variant="secondary" size="large">
+          <Button href="/reflection?start=1" variant="secondary" size="large">
             Begin Reflection
           </Button>
         </div>
@@ -91,7 +91,7 @@ export default function HomePage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Button href="/reflection" variant="primary" size="large">
+              <Button href="/reflection?start=1" variant="primary" size="large">
                 Start the Dialogue
               </Button>
             </motion.div>

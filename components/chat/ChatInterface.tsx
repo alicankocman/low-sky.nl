@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, type ReactElement } from 'react';
 import { Button } from '@/components/ui/Button';
 import { motion } from 'framer-motion';
 
@@ -15,14 +15,14 @@ interface ChatInterfaceProps {
 
 // Generate a simple session ID
 function generateSessionId(): string {
-  return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  return `session_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
 }
 
 // Simple markdown-like text formatter
 function formatMessage(text: string) {
   // Split by lines
   const lines = text.split('\n');
-  const elements: JSX.Element[] = [];
+  const elements: ReactElement[] = [];
   let listItems: string[] = [];
   let inList = false;
 
@@ -113,7 +113,6 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const sessionIdRef = useRef<string>(generateSessionId());
   const hasLoggedStartRef = useRef(false);
@@ -255,55 +254,78 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
   };
 
   return (
-    <div className="min-h-screen bg-sand-50 pt-[57px]">
-      <div className="flex flex-col max-w-5xl mx-auto" style={{ height: 'calc(100vh - 57px)' }}>
+    <div className="min-h-screen bg-gradient-to-b from-sand-50 to-sand-100/80 pt-[57px]">
+      <div
+        className="flex flex-col max-w-3xl mx-auto border-x border-sand-200/80 bg-sand-50/90 shadow-[0_0_0_1px_rgba(122,139,114,0.06)]"
+        style={{ height: 'calc(100vh - 57px)' }}
+      >
         {/* Header */}
-        <div className="bg-white border-b-2 border-sand-200 px-4 sm:px-6 lg:px-8 py-5 flex-shrink-0">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-h4 lg:text-h3 text-ink-900 font-serif">
-                Leadership Dialogue
-              </h2>
-              <p className="text-caption text-ink-600 mt-1">
-                Share your thoughts freely
-              </p>
+        <header className="bg-white border-b-2 border-sand-200 px-4 sm:px-6 py-4 flex-shrink-0">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex gap-4 min-w-0">
+              <div
+                className="hidden sm:block w-1 shrink-0 self-stretch min-h-[3rem] bg-sage-600"
+                aria-hidden
+              />
+              <div className="min-w-0">
+                <p className="text-caption font-medium uppercase tracking-wide text-sage-700 mb-1">
+                  AI · Leadership reflection
+                </p>
+                <h2 className="text-h4 sm:text-h3 text-ink-900 font-serif leading-tight">
+                  Dialogue
+                </h2>
+                <p className="text-caption text-ink-600 mt-1 max-w-md">
+                  One message at a time. Take your time—there are no wrong answers.
+                </p>
+              </div>
             </div>
             {onReset && (
               <button
+                type="button"
                 onClick={onReset}
-                className="text-body-sm text-ink-500 hover:text-ink-900 transition-colors px-4 py-2 border border-sand-200 hover:border-sand-300"
+                className="shrink-0 text-body-sm text-ink-500 hover:text-ink-900 transition-colors px-3 py-2 border border-sand-200 hover:border-sand-300 bg-white"
               >
-                ← Back
+                ← Intro
               </button>
             )}
           </div>
-        </div>
+        </header>
 
         {/* Messages */}
-        <div 
+        <div
           ref={messagesContainerRef}
-          className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8"
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions"
+          className="flex-1 min-h-0 overflow-y-auto px-3 sm:px-6 py-5 sm:py-6 bg-sand-50/50"
           onScroll={(e) => {
-            // Detect if user manually scrolled up
             const container = e.currentTarget;
-            const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 150;
+            const isNearBottom =
+              container.scrollHeight - container.scrollTop - container.clientHeight < 150;
             shouldAutoScrollRef.current = isNearBottom;
           }}
         >
-          <div className="space-y-5 sm:space-y-6 max-w-4xl mx-auto">
+          <div className="space-y-6 max-w-2xl mx-auto">
             {messages.map((message, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`flex flex-col ${message.role === 'user' ? 'items-end' : 'items-start'}`}
               >
+                <span
+                  className={`text-caption font-medium uppercase tracking-wide mb-1.5 ${
+                    message.role === 'user' ? 'text-sage-800' : 'text-ink-500'
+                  }`}
+                >
+                  {message.role === 'user' ? 'You' : 'Coach'}
+                </span>
                 <div
-                  className={`max-w-[90%] sm:max-w-[80%] lg:max-w-[75%] px-5 sm:px-6 py-4 sm:py-5 ${
+                  className={`max-w-[92%] sm:max-w-[85%] px-4 sm:px-5 py-3.5 sm:py-4 border-2 ${
                     message.role === 'user'
-                      ? 'bg-sage-600 text-white'
-                      : 'bg-white border-2 border-sand-200 text-ink-900 shadow-sm'
+                      ? 'bg-sage-700 border-sage-800 text-sand-50'
+                      : 'bg-white border-sand-200 text-ink-900 shadow-sm'
                   }`}
                 >
                   {message.role === 'assistant' ? (
@@ -323,47 +345,64 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="flex justify-start"
+                className="flex flex-col items-start"
               >
-                <div className="bg-white border-2 border-sand-200 shadow-sm px-6 py-5">
+                <span className="text-caption font-medium uppercase tracking-wide text-ink-500 mb-1.5">
+                  Coach
+                </span>
+                <div className="bg-white border-2 border-sand-200 shadow-sm px-5 py-4">
                   <div className="flex space-x-2 items-center">
-                    <div className="w-2 h-2 bg-sage-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <div className="w-2 h-2 bg-sage-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <div className="w-2 h-2 bg-sage-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    <span className="sr-only">Coach is typing</span>
+                    <div
+                      className="w-2 h-2 bg-sage-500 rounded-full animate-bounce"
+                      style={{ animationDelay: '0ms' }}
+                    />
+                    <div
+                      className="w-2 h-2 bg-sage-500 rounded-full animate-bounce"
+                      style={{ animationDelay: '150ms' }}
+                    />
+                    <div
+                      className="w-2 h-2 bg-sage-500 rounded-full animate-bounce"
+                      style={{ animationDelay: '300ms' }}
+                    />
                   </div>
                 </div>
               </motion.div>
             )}
-
-            <div ref={messagesEndRef} />
           </div>
         </div>
 
-        {/* Input */}
+        {/* Input composer */}
         {!isComplete && (
-          <div className="bg-white border-t-2 border-sand-200 px-4 sm:px-6 lg:px-8 py-5 flex-shrink-0">
-            <div className="max-w-4xl mx-auto">
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="bg-white border-t-2 border-sand-200 px-3 sm:px-6 py-4 flex-shrink-0">
+            <div className="max-w-2xl mx-auto">
+              <label htmlFor="leadership-chat-input" className="sr-only">
+                Your message
+              </label>
+              <div className="flex flex-col sm:flex-row gap-3 sm:items-end border-2 border-sand-200 focus-within:border-sage-500 transition-colors bg-sand-50/30 p-3 sm:p-3">
                 <textarea
+                  id="leadership-chat-input"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Write your thoughts..."
-                  className="flex-1 resize-none border-2 border-sand-200 bg-white px-4 py-3 text-body text-ink-900 focus:border-sage-500 focus:outline-none transition-colors"
+                  placeholder="Share your reflection here…"
+                  className="flex-1 resize-none border-0 bg-transparent px-1 py-2 text-body text-ink-900 placeholder:text-ink-400 focus:outline-none focus:ring-0 min-h-[5.5rem] sm:min-h-[4.5rem]"
                   rows={3}
                   disabled={isLoading}
                 />
-                <Button
-                  onClick={handleSend}
-                  disabled={!input.trim() || isLoading}
-                  variant="primary"
-                  size="large"
-                >
-                  {isLoading ? 'Sending...' : 'Send'}
-                </Button>
+                <div className="w-full sm:w-auto sm:self-end shrink-0">
+                  <Button
+                    onClick={handleSend}
+                    disabled={!input.trim() || isLoading}
+                    variant="primary"
+                    size="default"
+                  >
+                    {isLoading ? 'Sending…' : 'Send'}
+                  </Button>
+                </div>
               </div>
-              <p className="text-caption text-ink-500 mt-2">
-                Press Enter to send, Shift+Enter for new line
+              <p className="text-caption text-ink-500 mt-2 px-0.5">
+                Enter to send · Shift+Enter for a new line
               </p>
             </div>
           </div>
@@ -374,15 +413,14 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-sage-50 border-t-2 border-sage-200 px-4 sm:px-6 lg:px-8 py-6 flex-shrink-0"
+            className="bg-sage-50 border-t-2 border-sage-200 px-4 sm:px-6 py-6 flex-shrink-0"
           >
-            <div className="max-w-4xl mx-auto text-center space-y-4">
+            <div className="max-w-2xl mx-auto text-center space-y-4">
               <p className="text-body-lg text-ink-900 font-medium">
-                ✓ Dialogue Complete
+                Dialogue complete
               </p>
               <p className="text-body text-ink-600">
-                Your reflection report is above. Would you like to learn more about our programs 
-                or get in touch with us?
+                Your reflection report is above. Explore programs or reach out when you are ready.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-2">
                 <Button href="/programs" variant="primary" size="large">
@@ -393,7 +431,7 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
                 </Button>
                 {onReset && (
                   <Button onClick={onReset} variant="ghost" size="large">
-                    Start New Dialogue
+                    New dialogue
                   </Button>
                 )}
               </div>

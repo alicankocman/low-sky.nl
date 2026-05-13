@@ -1,15 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChatInterface } from '@/components/chat/ChatInterface';
 import { Hero } from '@/components/ui/Hero';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'; 
 
 export default function ReflectionPage() {
   const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('start') === '1') {
+      setHasStarted(true);
+      window.history.replaceState({}, '', '/reflection');
+    }
+  }, []);
 
   if (hasStarted) {
     return <ChatInterface onReset={() => setHasStarted(false)} />;
