@@ -3,6 +3,7 @@ import { Inter, Crimson_Pro } from 'next/font/google'
 import './globals.css'
 import { Navigation } from '@/components/layout/Navigation'
 import { Footer } from '@/components/layout/Footer'
+import { LeadershipEntryLayer } from '@/components/onboarding/LeadershipEntryLayer'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -30,7 +31,8 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${crimson.variable}`}>
       <body className="bg-sand-50 text-ink-900 antialiased">
         <Navigation />
-        <main className="min-h-screen">
+        <LeadershipEntryLayer />
+        <main className="min-h-screen pb-28 md:pb-32">
           {children}
         </main>
         <Footer />

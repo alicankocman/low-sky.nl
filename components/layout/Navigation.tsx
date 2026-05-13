@@ -71,13 +71,20 @@ export function Navigation() {
                 })}
               </ul>
               
-              {/* CTA Button */}
-              <Link
-                href="/contact"
-                className="px-5 py-2 text-sm text-ink-900 border border-ink-900/20 hover:border-ink-900/40 hover:bg-sand-100 transition-all"
-              >
-                Get Started
-              </Link>
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/reflection?start=1"
+                  className="px-5 py-2 text-sm font-medium text-sand-50 bg-sage-700 border border-sage-700 hover:bg-sage-800 hover:border-sage-800 transition-all"
+                >
+                  AI dialogue
+                </Link>
+                <Link
+                  href="/contact"
+                  className="px-5 py-2 text-sm text-ink-900 border border-ink-900/20 hover:border-ink-900/40 hover:bg-sand-100 transition-all"
+                >
+                  Contact
+                </Link>
+              </div>
             </div>
 
             {/* Mobile Hamburger */}
@@ -153,13 +160,20 @@ export function Navigation() {
                   })}
                 </ul>
                 
-                <div className="mt-4 pt-3 border-t border-sand-200/60">
+                <div className="mt-4 pt-3 border-t border-sand-200/60 space-y-2">
+                  <Link
+                    href="/reflection?start=1"
+                    onClick={closeMenu}
+                    className="block w-full px-5 py-2.5 text-center text-base font-medium text-sand-50 bg-sage-700 border border-sage-700 hover:bg-sage-800 transition-all"
+                  >
+                    AI dialogue
+                  </Link>
                   <Link
                     href="/contact"
                     onClick={closeMenu}
                     className="block w-full px-5 py-2.5 text-center text-base text-ink-900 border border-ink-900/20 hover:border-ink-900/40 hover:bg-sand-100 transition-all"
                   >
-                    Get Started
+                    Contact
                   </Link>
                 </div>
               </nav>
