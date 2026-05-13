@@ -53,7 +53,7 @@ export default function ProgramsPage() {
             Or reach out—we're happy to discuss your goals and help you choose.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button href="/reflection" variant="primary" size="large">
+            <Button href="/reflection?start=1" variant="primary" size="large">
               Start Reflection
             </Button>
             <Button href="/contact" variant="secondary" size="large">

@@ -38,7 +38,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/reflection" className="text-base text-ink-500 hover:text-ink-900 transition-colors inline-block">
+                <Link href="/reflection?start=1" className="text-base text-ink-500 hover:text-ink-900 transition-colors inline-block">
                   Reflection
                 </Link>
               </li>

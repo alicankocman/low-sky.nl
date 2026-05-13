@@ -42,7 +42,7 @@ export default function ContactPage() {
             <Button href="/programs" variant="primary" size="large">
               View Programs
             </Button>
-            <Button href="/reflection" variant="ghost" size="large">
+            <Button href="/reflection?start=1" variant="ghost" size="large">
               Start Reflection
             </Button>
           </div>
