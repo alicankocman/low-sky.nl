@@ -1,7 +1,8 @@
 'use client';
 
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 export type HomeGuidedIntroChatProps = {
   onDismiss: () => void;
@@ -10,48 +11,42 @@ export type HomeGuidedIntroChatProps = {
 
 type Line = { role: 'host' | 'guest'; text: string };
 
-type Phase =
-  | 'welcome'
-  | 'about_work'
-  | 'invite'
-  | 'done';
+type Phase = 'welcome' | 'about_work' | 'invite' | 'done';
 
-const PHASE_COPY: Record<
+type PhaseCopy = Record<
   Exclude<Phase, 'done'>,
   { host: string; choices: { label: string; next: Phase | 'begin' | 'dismiss' }[] }
-> = {
-  welcome: {
-    host:
-      "Hello. We're Low Sky—the Center for Human & Context Development. We walk alongside people who want to grow as leaders in a grounded, human way—not through hype or quick tips.",
-    choices: [{ label: 'Tell me more', next: 'about_work' }],
-  },
-  about_work: {
-    host:
-      'We run leadership programs and a guided reflection dialogue: open questions, your own words, and space to think. Along the way you get a written reflection you can revisit—not a score, rank, or pass/fail.',
-    choices: [{ label: 'What happens next?', next: 'invite' }],
-  },
-  invite: {
-    host:
-      "If you're curious, we can explore how you lead and what shapes you—gently, in about ten quiet minutes. It's a conversation, not an exam. Shall we begin?",
-    choices: [
-      { label: "Yes, let's explore", next: 'begin' },
-      { label: 'Not now', next: 'dismiss' },
-    ],
-  },
-};
+>;
 
-export function HomeGuidedIntroChat({
-  onDismiss,
-  onBeginReflection,
-}: HomeGuidedIntroChatProps) {
-  const [lines, setLines] = useState<Line[]>(() => [
-    { role: 'host', text: PHASE_COPY.welcome.host },
-  ]);
+function buildPhaseCopy(t: ReturnType<typeof useTranslations>): PhaseCopy {
+  return {
+    welcome: {
+      host: t('welcomeHost'),
+      choices: [{ label: t('welcomeChoice'), next: 'about_work' }],
+    },
+    about_work: {
+      host: t('aboutHost'),
+      choices: [{ label: t('aboutChoice'), next: 'invite' }],
+    },
+    invite: {
+      host: t('inviteHost'),
+      choices: [
+        { label: t('inviteYes'), next: 'begin' },
+        { label: t('inviteNo'), next: 'dismiss' },
+      ],
+    },
+  };
+}
+
+export function HomeGuidedIntroChat({ onDismiss, onBeginReflection }: HomeGuidedIntroChatProps) {
+  const t = useTranslations('Guided');
+  const phaseCopy = useMemo(() => buildPhaseCopy(t), [t]);
+
+  const [lines, setLines] = useState<Line[]>([{ role: 'host', text: phaseCopy.welcome.host }]);
   const [phase, setPhase] = useState<Phase>('welcome');
   const [handoffPending, setHandoffPending] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  /** Align the newest bubble to the top of the scroll area so long host messages start at the first line. */
   useLayoutEffect(() => {
     const container = scrollRef.current;
     if (!container || lines.length === 0) return;
@@ -71,7 +66,7 @@ export function HomeGuidedIntroChat({
     return () => cancelAnimationFrame(id);
   }, [lines]);
 
-  const choices = phase === 'done' ? [] : PHASE_COPY[phase].choices;
+  const choices = phase === 'done' ? [] : phaseCopy[phase].choices;
 
   const handleChoice = (label: string, next: Phase | 'begin' | 'dismiss') => {
     if (handoffPending) return;
@@ -90,7 +85,7 @@ export function HomeGuidedIntroChat({
       return;
     }
 
-    const block = PHASE_COPY[next as Exclude<Phase, 'done'>];
+    const block = phaseCopy[next as Exclude<Phase, 'done'>];
     setPhase(next as Phase);
     setLines((prev) => [...prev, { role: 'host', text: block.host }]);
   };
@@ -101,11 +96,10 @@ export function HomeGuidedIntroChat({
         id="leadership-entry-title"
         className="font-serif text-h4 font-light leading-snug tracking-tight text-ink-950 mb-1 shrink-0"
       >
-        Get acquainted
+        {t('title')}
       </h2>
       <p id="leadership-entry-desc" className="sr-only">
-        A short in-page introduction to Low Sky. You can reply with the suggested buttons, open the
-        full reflection dialogue at any time using Open dialogue, or explore the site first.
+        {t('srDescription')}
       </p>
 
       <div
@@ -141,9 +135,7 @@ export function HomeGuidedIntroChat({
 
       {phase !== 'done' && choices.length > 0 && (
         <div className="space-y-2 shrink-0 pt-1 border-t border-sand-200/70">
-          <p className="text-caption font-medium uppercase tracking-wider text-sage-800">
-            Your reply
-          </p>
+          <p className="text-caption font-medium uppercase tracking-wider text-sage-800">{t('yourReply')}</p>
           <div className="flex flex-col gap-2">
             {choices.map((c) => (
               <button
@@ -168,7 +160,7 @@ export function HomeGuidedIntroChat({
               }}
               className="font-sans w-full text-center text-body-sm text-sage-800 hover:text-sage-950 py-1.5 underline-offset-4 hover:underline disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-sand-50 rounded-sm"
             >
-              Open dialogue
+              {t('openDialogue')}
             </button>
             <button
               type="button"
@@ -176,7 +168,7 @@ export function HomeGuidedIntroChat({
               onClick={onDismiss}
               className="font-sans w-full text-center text-body-sm text-ink-600 hover:text-ink-950 py-1.5 underline-offset-4 hover:underline disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-sand-50 rounded-sm"
             >
-              Explore the site first
+              {t('exploreFirst')}
             </button>
           </div>
         </div>

@@ -1,0 +1,316 @@
+{
+  "Meta": {
+    "title": "Low Sky | Center For Human & Context Development",
+    "description": "A journey of self-discovery and intentional growth"
+  },
+  "Nav": {
+    "home": "Home",
+    "programs": "Programs",
+    "reflection": "Reflection",
+    "aiDialogue": "AI dialogue",
+    "contact": "Contact",
+    "toggleMenu": "Toggle menu",
+    "brandSubtitle": "Center For Human & Context Development",
+    "language": "Language",
+    "langEn": "English",
+    "langNl": "Nederlands"
+  },
+  "Footer": {
+    "brandSubtitle": "Center For Human & Context Development",
+    "tagline": "A journey of self-discovery and intentional growth.",
+    "navTitle": "Navigate",
+    "connectTitle": "Connect",
+    "copyright": "© {year} Low Sky"
+  },
+  "Home": {
+    "heroTitle": "Leadership begins with understanding yourself",
+    "heroDescription": "A space for reflection, growth, and intentional transformation. Discover who you are, clarify what matters, and step into the leader you're becoming.",
+    "explorePrograms": "Explore Programs",
+    "beginReflection": "Begin Reflection",
+    "approachSubtitle": "Our Approach",
+    "approachTitle": "Thoughtful growth, not quick fixes",
+    "approachDescription": "We believe leadership is a personal journey, not a checklist. It requires patience, curiosity, and the courage to look inward before leading outward.",
+    "cardAwarenessTitle": "Self-Awareness",
+    "cardAwarenessBody": "Understanding your patterns, values, and triggers is the foundation of authentic leadership.",
+    "cardIntentionTitle": "Intentionality",
+    "cardIntentionBody": "Leading with purpose requires clarity about what you stand for and where you're going.",
+    "cardPresenceTitle": "Presence",
+    "cardPresenceBody": "True influence comes from being fully engaged with yourself, your team, and the moment.",
+    "journeyTitle": "Your journey starts with curiosity",
+    "journeyBody": "Before choosing a program, we invite you to explore who you are through our self-discovery assessment. There are no right answers—only honest reflection.",
+    "startDialogue": "Start the Dialogue",
+    "quote": "The privilege of a lifetime is to become who you truly are.",
+    "quoteAuthor": "Carl Jung",
+    "ctaTitle": "Ready to explore?",
+    "ctaBody": "Whether you're just beginning your leadership journey or deepening an existing practice, we're here to support your growth.",
+    "viewPrograms": "View Programs",
+    "getInTouch": "Get in Touch"
+  },
+  "Programs": {
+    "heroSubtitle": "Programs",
+    "heroTitle": "Two paths, one journey",
+    "heroDescription": "Whether you're beginning your leadership practice or deepening an existing one, our programs meet you where you are.",
+    "ctaTitle": "Not sure which program is right for you?",
+    "ctaBody": "Start with our leadership reflection dialogue to gain insight into your leadership style and needs. Or reach out—we're happy to discuss your goals and help you choose.",
+    "startReflection": "Start Reflection",
+    "contactUs": "Contact Us",
+    "items": [
+      {
+        "title": "New Personal Leadership",
+        "description": "A foundational program for emerging leaders who want to build self-awareness, clarify their values, and develop a personal leadership philosophy. Through guided reflection and practical exercises, you'll discover your unique approach to leadership.",
+        "duration": "8 weeks",
+        "format": "Cohort-based",
+        "href": "/contact"
+      },
+      {
+        "title": "Leadership in Residence",
+        "description": "An immersive experience for established leaders seeking deeper transformation. This residency combines intensive self-inquiry, peer learning, and one-on-one mentorship to help you evolve your leadership practice and navigate complex challenges.",
+        "duration": "6 months",
+        "format": "Hybrid",
+        "href": "/contact"
+      }
+    ]
+  },
+  "ProgramCard": {
+    "duration": "Duration",
+    "format": "Format",
+    "cta": "Get in Touch →"
+  },
+  "Contact": {
+    "thankYouSubtitle": "Thank You",
+    "thankYouTitle": "We've received your message",
+    "thankYouDescription": "We'll get back to you within 2 business days. In the meantime, feel free to explore our programs or take the self-discovery assessment.",
+    "thankViewPrograms": "View Programs",
+    "thankStartReflection": "Start Reflection",
+    "heroSubtitle": "Get in Touch",
+    "heroTitle": "Let's start a conversation",
+    "heroDescription": "Whether you have questions about our programs, want to discuss your assessment results, or simply want to connect, we're here to listen.",
+    "nameLabel": "Your Name",
+    "namePlaceholder": "Enter your full name",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "your@email.com",
+    "interestLabel": "I'm interested in",
+    "interestPlaceholder": "Select an option",
+    "interestNpl": "New Personal Leadership",
+    "interestLir": "Leadership in Residence",
+    "interestAssessment": "Discussing my assessment results",
+    "interestGeneral": "General inquiry",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell us a bit about yourself and what brings you here...",
+    "sendMessage": "Send Message",
+    "privacyNote": "We respect your privacy. Your information will never be shared with third parties.",
+    "emailDirectTitle": "Prefer to email directly?",
+    "emailDirectBodyBefore": "You can reach us at",
+    "emailDirectResponse": "We typically respond within 2 business days."
+  },
+  "Reflection": {
+    "heroSubtitle": "Leadership Reflection",
+    "heroTitle": "A conversation with yourself",
+    "heroDescription": "This is not a test, but a space for thinking and reflection. Discover your leadership approach through open-ended questions.",
+    "howTitle": "How does it work?",
+    "howP1": "I'll ask you open-ended questions about your decision-making patterns, sense of responsibility, relationship with uncertainty, and self-awareness.",
+    "howP2": "After answering questions, you can add more context or ask questions of your own. We'll proceed as a dialogue, similar to ChatGPT.",
+    "howP3Before": "At the end, you won't receive a score, level, or category—instead, you'll get a",
+    "howP3Strong": " reflection report",
+    "howP3After": " about your leadership approach.",
+    "privacyTitle": "Privacy & Ethics",
+    "privacy1": "Your responses are not stored",
+    "privacy2": "Conversation history is not persistent",
+    "privacy3": "Each session is isolated and independent",
+    "privacy4": "Only anonymous usage data is collected",
+    "timeNote": "The dialogue takes approximately 10-15 minutes. We recommend starting in a quiet environment where you can be honest with yourself.",
+    "beginDialogue": "Begin Dialogue",
+    "programsTitle": "Looking for program information?",
+    "programsBody": "At the end of the dialogue, we'll recommend a suitable program for you. But if you'd like, you can explore our programs now.",
+    "viewPrograms": "View Programs",
+    "contactUs": "Contact Us"
+  },
+  "Guided": {
+    "title": "Get acquainted",
+    "srDescription": "A short in-page introduction to Low Sky. You can reply with the suggested buttons, open the full reflection dialogue at any time using Open dialogue, or explore the site first.",
+    "yourReply": "Your reply",
+    "openDialogue": "Open dialogue",
+    "exploreFirst": "Explore the site first",
+    "welcomeHost": "Hello. We're Low Sky—the Center for Human & Context Development. We walk alongside people who want to grow as leaders in a grounded, human way—not through hype or quick tips.",
+    "welcomeChoice": "Tell me more",
+    "aboutHost": "We run leadership programs and a guided reflection dialogue: open questions, your own words, and space to think. Along the way you get a written reflection you can revisit—not a score, rank, or pass/fail.",
+    "aboutChoice": "What happens next?",
+    "inviteHost": "If you're curious, we can explore how you lead and what shapes you—gently, in about ten quiet minutes. It's a conversation, not an exam. Shall we begin?",
+    "inviteYes": "Yes, let's explore",
+    "inviteNo": "Not now"
+  },
+  "LeadershipLayer": {
+    "guidedStart": "Guided start",
+    "openDialogue": "Open dialogue",
+    "dismissAria": "Dismiss guided start",
+    "fabGuidedTitle": "Guided start",
+    "fabGuidedSubtitle": "Get acquainted",
+    "fabOpenAria": "Open guided start",
+    "fabDialogueTitle": "Dialogue",
+    "fabDialogueSubtitle": "AI dialogue"
+  },
+  "Chat": {
+    "kicker": "AI · Leadership reflection",
+    "title": "Dialogue",
+    "subtitle": "One message at a time. Take your time—there are no wrong answers.",
+    "backIntro": "← Intro",
+    "you": "You",
+    "coach": "Coach",
+    "typing": "Coach is typing",
+    "inputLabel": "Your message",
+    "placeholder": "Share your reflection here…",
+    "send": "Send",
+    "sending": "Sending…",
+    "hintKeys": "Enter to send · Shift+Enter for a new line",
+    "completeTitle": "Dialogue complete",
+    "completeBody": "Your reflection report is above. Explore programs or reach out when you are ready.",
+    "newDialogue": "New dialogue",
+    "viewPrograms": "View Programs",
+    "contactUs": "Contact Us",
+    "fallbackAssistant": "I understand. Could you tell me more?",
+    "errorAssistant": "Sorry, an error occurred. Please try again.",
+    "initialAssistant": "Hello. I'd like to talk with you about your leadership journey. My first question: Think of an important decision you made recently. What did you pay attention to when making that decision?"
+  },
+  "Test": {
+    "heroSubtitle": "Self-Discovery",
+    "heroTitle": "Know yourself, lead yourself",
+    "heroDescription": "This assessment is an invitation to pause and reflect. There are no right answers—only your truth.",
+    "beforeTitle": "Before you begin",
+    "beforeP1": "This assessment takes approximately 10 minutes. Find a quiet space where you can be honest with yourself.",
+    "beforeLi1": "Answer based on how you naturally are, not how you think you should be",
+    "beforeLi2": "Trust your first instinct—don't overthink",
+    "beforeLi3": "There are no wrong answers, only different paths",
+    "beforePrivacy": "Your responses are private and will be used only to generate your personalized insights.",
+    "begin": "Begin Assessment",
+    "questionProgress": "Question {current} of {total}",
+    "previous": "← Previous",
+    "next": "Next →",
+    "viewResults": "View Results",
+    "questions": [
+      {
+        "id": 1,
+        "question": "When facing a difficult decision, I tend to:",
+        "options": [
+          { "value": "reflect", "label": "Take time alone to reflect deeply" },
+          { "value": "discuss", "label": "Talk it through with trusted people" },
+          { "value": "analyze", "label": "Gather data and analyze options" },
+          { "value": "intuition", "label": "Trust my gut feeling" }
+        ]
+      },
+      {
+        "id": 2,
+        "question": "What energizes me most as a leader?",
+        "options": [
+          { "value": "vision", "label": "Creating and sharing a compelling vision" },
+          { "value": "people", "label": "Supporting and developing others" },
+          { "value": "systems", "label": "Building systems and processes" },
+          { "value": "impact", "label": "Seeing tangible results and impact" }
+        ]
+      },
+      {
+        "id": 3,
+        "question": "In moments of conflict, I usually:",
+        "options": [
+          { "value": "mediate", "label": "Try to understand all perspectives" },
+          { "value": "direct", "label": "Address it directly and clearly" },
+          { "value": "pause", "label": "Step back and give it time" },
+          { "value": "solve", "label": "Focus on finding solutions" }
+        ]
+      },
+      {
+        "id": 4,
+        "question": "I feel most aligned when:",
+        "options": [
+          { "value": "authentic", "label": "I can be completely authentic" },
+          { "value": "growing", "label": "I'm learning and growing" },
+          { "value": "contributing", "label": "I'm contributing to something meaningful" },
+          { "value": "creating", "label": "I'm creating something new" }
+        ]
+      },
+      {
+        "id": 5,
+        "question": "What do you value most in leadership?",
+        "options": [
+          { "value": "integrity", "label": "Integrity and consistency" },
+          { "value": "empathy", "label": "Empathy and understanding" },
+          { "value": "clarity", "label": "Clarity and direction" },
+          { "value": "courage", "label": "Courage and boldness" }
+        ]
+      }
+    ]
+  },
+  "TestResult": {
+    "loading": "Loading your results...",
+    "heroSubtitle": "Your Results",
+    "strengthsTitle": "Your Strengths",
+    "strengthsIntro": "These are the qualities that naturally emerge in your leadership:",
+    "growthTitle": "Growth Edges",
+    "growthIntro": "Areas to explore as you continue your leadership journey:",
+    "ctaTitle": "Continue your journey",
+    "ctaBody": "Understanding your leadership style is just the beginning. Our programs are designed to help you deepen your strengths and expand into new capabilities.",
+    "explorePrograms": "Explore Programs",
+    "discussResults": "Discuss Your Results",
+    "profiles": {
+      "reflective": {
+        "title": "The Reflective Leader",
+        "description": "You lead from a place of deep inner awareness and authenticity. Your strength lies in your ability to pause, reflect, and bring genuine presence to your leadership.",
+        "strengths": [
+          "Deep self-awareness and emotional intelligence",
+          "Authentic and genuine in your interactions",
+          "Thoughtful decision-making process",
+          "Creates space for others to reflect and grow"
+        ],
+        "growth": [
+          "Balance reflection with timely action",
+          "Share your internal process with others",
+          "Trust that your authentic voice is enough"
+        ]
+      },
+      "analytical": {
+        "title": "The Systematic Leader",
+        "description": "You bring clarity and structure to complexity. Your ability to see patterns, build systems, and think strategically creates stability and direction for those you lead.",
+        "strengths": [
+          "Strong analytical and strategic thinking",
+          "Creates clear processes and frameworks",
+          "Data-informed decision making",
+          "Brings order to chaos"
+        ],
+        "growth": [
+          "Balance logic with intuition and emotion",
+          "Create space for ambiguity and emergence",
+          "Connect systems thinking to human impact"
+        ]
+      },
+      "collaborative": {
+        "title": "The Relational Leader",
+        "description": "You understand that leadership is fundamentally about people. Your empathy, listening skills, and ability to develop others creates environments where everyone can thrive.",
+        "strengths": [
+          "High emotional intelligence and empathy",
+          "Natural mentor and developer of people",
+          "Creates psychological safety",
+          "Builds strong, trusting relationships"
+        ],
+        "growth": [
+          "Balance care for others with self-care",
+          "Practice making difficult decisions",
+          "Set healthy boundaries"
+        ]
+      },
+      "visionary": {
+        "title": "The Visionary Leader",
+        "description": "You see possibilities others miss and inspire people toward a compelling future. Your intuition and creative thinking helps teams imagine and create what doesn't yet exist.",
+        "strengths": [
+          "Strong intuition and future-thinking",
+          "Inspires and motivates others",
+          "Comfortable with ambiguity",
+          "Drives innovation and change"
+        ],
+        "growth": [
+          "Balance vision with practical execution",
+          "Stay grounded in present reality",
+          "Translate inspiration into actionable steps"
+        ]
+      }
+    }
+  }
+}

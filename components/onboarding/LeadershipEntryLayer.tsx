@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocale, useTranslations } from 'next-intl';
 import { HomeGuidedIntroChat } from '@/components/onboarding/HomeGuidedIntroChat';
 
 const STORAGE_KEY = 'lowsky_leadership_welcome_v1';
@@ -16,6 +16,8 @@ const FAB_BUTTON_CLASS =
 export function LeadershipEntryLayer() {
   const pathname = usePathname();
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations('LeadershipLayer');
   const [hydrated, setHydrated] = useState(false);
   const [welcome, setWelcome] = useState<WelcomeState>('unknown');
 
@@ -53,23 +55,19 @@ export function LeadershipEntryLayer() {
     setWelcome('completed');
   }, []);
 
-  /** Skip the scripted intro anytime — same destination as navbar “AI dialogue”. */
   const openDialogueNow = useCallback(() => {
     completeWelcome();
     router.push('/reflection?start=1');
   }, [completeWelcome, router]);
 
-  const showWelcomeCard =
-    hydrated && pathname === '/' && welcome === 'open';
+  const showWelcomeCard = hydrated && pathname === '/' && welcome === 'open';
 
   const showFab =
     hydrated &&
-    pathname !== '/reflection' &&
+    !pathname.startsWith('/reflection') &&
     (pathname !== '/' || welcome === 'dismissed' || welcome === 'completed');
 
-  /** Home: this control only opens the in-page guided intro (reflection via nav or inside the panel). */
-  const homeGuidedFab =
-    pathname === '/' && (welcome === 'dismissed' || welcome === 'completed');
+  const homeGuidedFab = pathname === '/' && (welcome === 'dismissed' || welcome === 'completed');
 
   return (
     <>
@@ -95,21 +93,21 @@ export function LeadershipEntryLayer() {
                 <div className="flex items-start justify-between gap-3 px-5 pt-4 shrink-0">
                   <div className="min-w-0 pr-2">
                     <p className="font-sans text-caption font-semibold uppercase tracking-wider text-sage-800">
-                      Guided start
+                      {t('guidedStart')}
                     </p>
                     <button
                       type="button"
                       onClick={openDialogueNow}
                       className="mt-1.5 text-left font-sans text-body-sm text-sage-800 underline-offset-4 hover:text-sage-950 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-sand-50 rounded-sm"
                     >
-                      Open dialogue
+                      {t('openDialogue')}
                     </button>
                   </div>
                   <button
                     type="button"
                     onClick={dismissWelcome}
                     className="group shrink-0 -mr-1 -mt-1 flex h-9 w-9 items-center justify-center text-ink-600 transition-colors hover:text-ink-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-sand-50"
-                    aria-label="Dismiss guided start"
+                    aria-label={t('dismissAria')}
                   >
                     <span className="relative block h-3 w-3" aria-hidden>
                       <span className="absolute left-1/2 top-1/2 h-px w-[0.875rem] -translate-x-1/2 -translate-y-1/2 rotate-45 bg-current transition-transform group-hover:rotate-[40deg]" />
@@ -120,6 +118,7 @@ export function LeadershipEntryLayer() {
 
                 <div className="px-5 pb-4 min-h-0 flex-1 flex flex-col">
                   <HomeGuidedIntroChat
+                    key={locale}
                     onDismiss={dismissWelcome}
                     onBeginReflection={openDialogueNow}
                   />
@@ -144,7 +143,7 @@ export function LeadershipEntryLayer() {
                 type="button"
                 onClick={() => setWelcome('open')}
                 className={FAB_BUTTON_CLASS}
-                aria-label="Open guided start"
+                aria-label={t('fabOpenAria')}
               >
                 <span
                   className="flex h-9 w-9 shrink-0 items-center justify-center bg-sage-700 font-serif text-lg font-light leading-none text-sand-50 transition-colors duration-300 group-hover:bg-sage-800"
@@ -154,10 +153,10 @@ export function LeadershipEntryLayer() {
                 </span>
                 <span className="text-left py-0.5 pr-0.5">
                   <span className="block font-serif text-body-sm font-normal text-ink-950 leading-snug tracking-tight">
-                    Guided start
+                    {t('fabGuidedTitle')}
                   </span>
                   <span className="block font-sans text-caption font-semibold uppercase tracking-wider text-sage-800 mt-0.5">
-                    Get acquainted
+                    {t('fabGuidedSubtitle')}
                   </span>
                 </span>
               </button>
@@ -171,10 +170,10 @@ export function LeadershipEntryLayer() {
                 </span>
                 <span className="text-left py-0.5 pr-0.5">
                   <span className="block font-serif text-body-sm font-normal text-ink-950 leading-snug tracking-tight">
-                    Dialogue
+                    {t('fabDialogueTitle')}
                   </span>
                   <span className="block font-sans text-caption font-semibold uppercase tracking-wider text-sage-800 mt-0.5">
-                    AI dialogue
+                    {t('fabDialogueSubtitle')}
                   </span>
                 </span>
               </Link>

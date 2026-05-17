@@ -1,0 +1,316 @@
+{
+  "Meta": {
+    "title": "Low Sky | Centrum voor Menselijke & Contextuele Ontwikkeling",
+    "description": "Een reis van zelfontdekking en bewust groeien"
+  },
+  "Nav": {
+    "home": "Home",
+    "programs": "Programma's",
+    "reflection": "Reflectie",
+    "aiDialogue": "AI-dialoog",
+    "contact": "Contact",
+    "toggleMenu": "Menu openen of sluiten",
+    "brandSubtitle": "Centrum voor Menselijke & Contextuele Ontwikkeling",
+    "language": "Taal",
+    "langEn": "English",
+    "langNl": "Nederlands"
+  },
+  "Footer": {
+    "brandSubtitle": "Centrum voor Menselijke & Contextuele Ontwikkeling",
+    "tagline": "Een reis van zelfontdekking en bewust groeien.",
+    "navTitle": "Navigatie",
+    "connectTitle": "Contact",
+    "copyright": "© {year} Low Sky"
+  },
+  "Home": {
+    "heroTitle": "Leiderschap begint met jezelf begrijpen",
+    "heroDescription": "Een plek voor reflectie, groei en bewuste verandering. Ontdek wie je bent, verklaar wat ertoe doet en stap in de leider die je aan het worden bent.",
+    "explorePrograms": "Ontdek programma's",
+    "beginReflection": "Begin met reflectie",
+    "approachSubtitle": "Onze aanpak",
+    "approachTitle": "Zorgvuldige groei, geen snelle oplossingen",
+    "approachDescription": "Wij geloven dat leiderschap een persoonlijke reis is, geen checklist. Het vraagt geduld, nieuwsgierigheid en de moed om naar binnen te kijken voordat je naar buiten leidt.",
+    "cardAwarenessTitle": "Zelfbewustzijn",
+    "cardAwarenessBody": "Je patronen, waarden en triggers begrijpen is de basis van authentiek leiderschap.",
+    "cardIntentionTitle": "Intentie",
+    "cardIntentionBody": "Leiden met doel vraagt helderheid over waar je voor staat en waar je naartoe gaat.",
+    "cardPresenceTitle": "Aanwezigheid",
+    "cardPresenceBody": "Echte invloed komt voort uit volledige aandacht voor jezelf, je team en het moment.",
+    "journeyTitle": "Je reis begint met nieuwsgierigheid",
+    "journeyBody": "Voordat je een programma kiest, nodigen we je uit om door onze zelfontdekkings-oefening te verkennen wie je bent. Er zijn geen goede of foute antwoorden—alleen eerlijke reflectie.",
+    "startDialogue": "Start de dialoog",
+    "quote": "Het voorrecht van een leven is om te worden wie je werkelijk bent.",
+    "quoteAuthor": "Carl Jung",
+    "ctaTitle": "Klaar om te verkennen?",
+    "ctaBody": "Of je nu net begint met je leiderschapsreis of een bestaande praktijk verdiept—wij steunen je groei.",
+    "viewPrograms": "Bekijk programma's",
+    "getInTouch": "Neem contact op"
+  },
+  "Programs": {
+    "heroSubtitle": "Programma's",
+    "heroTitle": "Twee paden, één reis",
+    "heroDescription": "Of je nu je leiderschapspraktijk opbouwt of verdiept—onze programma's ontmoeten je waar je bent.",
+    "ctaTitle": "Weet je niet welk programma bij je past?",
+    "ctaBody": "Begin met onze reflectieve leiderschapsdialoog voor inzicht in je stijl en behoeften. Of neem contact op—we denken graag mee over je doelen en keuze.",
+    "startReflection": "Start reflectie",
+    "contactUs": "Contact",
+    "items": [
+      {
+        "title": "New Personal Leadership",
+        "description": "Een fundamenteel programma voor opkomende leiders die zelfbewustzijn willen opbouwen, waarden willen scherpen en een persoonlijke leiderschapsfilosofie willen ontwikkelen. Via begeleide reflectie en praktische oefening ontdek je je eigen aanpak van leiderschap.",
+        "duration": "8 weken",
+        "format": "Cohort",
+        "href": "/contact"
+      },
+      {
+        "title": "Leadership in Residence",
+        "description": "Een intense ervaring voor ervaren leiders die diepere transformatie zoeken. De residency combineert introspectie, peer learning en één-op-één begeleiding om je praktijk te verdiepen en complexe uitdagingen te navigeren.",
+        "duration": "6 maanden",
+        "format": "Hybride",
+        "href": "/contact"
+      }
+    ]
+  },
+  "ProgramCard": {
+    "duration": "Duur",
+    "format": "Vorm",
+    "cta": "Neem contact op →"
+  },
+  "Contact": {
+    "thankYouSubtitle": "Dank je",
+    "thankYouTitle": "We hebben je bericht ontvangen",
+    "thankYouDescription": "We reageren binnen twee werkdagen. Ondertussen kun je onze programma's verkennen of de zelfontdekkings-oefening doen.",
+    "thankViewPrograms": "Bekijk programma's",
+    "thankStartReflection": "Start reflectie",
+    "heroSubtitle": "Contact",
+    "heroTitle": "Laten we in gesprek gaan",
+    "heroDescription": "Vragen over programma's, je assessment bespreken, of gewoon verbinden—we luisteren graag.",
+    "nameLabel": "Je naam",
+    "namePlaceholder": "Voor je volledige naam",
+    "emailLabel": "E-mailadres",
+    "emailPlaceholder": "jij@voorbeeld.nl",
+    "interestLabel": "Ik heb interesse in",
+    "interestPlaceholder": "Kies een optie",
+    "interestNpl": "New Personal Leadership",
+    "interestLir": "Leadership in Residence",
+    "interestAssessment": "Mijn assessment bespreken",
+    "interestGeneral": "Algemene vraag",
+    "messageLabel": "Bericht",
+    "messagePlaceholder": "Vertel kort wie je bent en wat je hier brengt...",
+    "sendMessage": "Verstuur bericht",
+    "privacyNote": "We respecteren je privacy. Je gegevens worden niet gedeeld met derden.",
+    "emailDirectTitle": "Liever direct mailen?",
+    "emailDirectBodyBefore": "Je bereikt ons op",
+    "emailDirectResponse": "We reageren meestal binnen twee werkdagen."
+  },
+  "Reflection": {
+    "heroSubtitle": "Leiderschapsreflectie",
+    "heroTitle": "Een gesprek met jezelf",
+    "heroDescription": "Dit is geen test, maar een ruimte om te denken en te reflecteren. Ontdek je leiderschapsaanpak via open vragen.",
+    "howTitle": "Hoe werkt het?",
+    "howP1": "Ik stel open vragen over hoe je besluit, verantwoordelijkheid ervaart, omgaat met onzekerheid en met jezelf.",
+    "howP2": "Na je antwoorden kun je context toevoegen of zelf vragen stellen. We gaan verder als dialoog, vergelijkbaar met ChatGPT.",
+    "howP3Before": "Aan het einde krijg je geen score of label—wel een",
+    "howP3Strong": " reflectierapport",
+    "howP3After": " over je leiderschapsaanpak.",
+    "privacyTitle": "Privacy & ethiek",
+    "privacy1": "Je antwoorden worden niet opgeslagen",
+    "privacy2": "Geen blijvende gespreksgeschiedenis",
+    "privacy3": "Elke sessie is op zichzelf staand",
+    "privacy4": "Alleen anonieme gebruiksdata wordt verzameld",
+    "timeNote": "De dialoog duurt ongeveer 10–15 minuten. Kies bij voorkeur een rustige plek waar je eerlijk kunt zijn.",
+    "beginDialogue": "Begin de dialoog",
+    "programsTitle": "Op zoek naar programma-informatie?",
+    "programsBody": "Aan het einde van de dialoog raden we een passend programma aan. Je kunt onze programma's ook nu al verkennen.",
+    "viewPrograms": "Bekijk programma's",
+    "contactUs": "Contact"
+  },
+  "Guided": {
+    "title": "Maak kennis",
+    "srDescription": "Een korte introductie op de pagina. Je kunt met de knoppen antwoorden, op elk moment de volledige reflectiedialoog openen via Open dialoog, of eerst de site verkennen.",
+    "yourReply": "Je antwoord",
+    "openDialogue": "Open dialoog",
+    "exploreFirst": "Eerst de site verkennen",
+    "welcomeHost": "Hallo. Wij zijn Low Sky—het Centrum voor Menselijke & Contextuele Ontwikkeling. We lopen mee met mensen die als leiders willen groeien op een geaarde, menselijke manier—niet met hype of snelle tips.",
+    "welcomeChoice": "Vertel me meer",
+    "aboutHost": "We bieden leiderschapsprogramma's en een begeleide reflectiedialoog: open vragen, je eigen woorden en ruimte om te denken. Onderweg krijg je een schriftelijke reflectie om later terug te lezen—geen score, rang of voldoende/onvoldoende.",
+    "aboutChoice": "Wat gebeurt er daarna?",
+    "inviteHost": "Als je nieuwsgierig bent, kunnen we op een zachte manier verkennen hoe je leidt en wat je vormt—in een kleine tien rustige minuten. Het is een gesprek, geen examen. Zullen we beginnen?",
+    "inviteYes": "Ja, laten we verkennen",
+    "inviteNo": "Nu niet"
+  },
+  "LeadershipLayer": {
+    "guidedStart": "Guided start",
+    "openDialogue": "Open dialoog",
+    "dismissAria": "Guided start sluiten",
+    "fabGuidedTitle": "Guided start",
+    "fabGuidedSubtitle": "Maak kennis",
+    "fabOpenAria": "Guided start openen",
+    "fabDialogueTitle": "Dialoog",
+    "fabDialogueSubtitle": "AI-dialoog"
+  },
+  "Chat": {
+    "kicker": "AI · Leiderschapsreflectie",
+    "title": "Dialoog",
+    "subtitle": "Eén bericht tegelijk. Neem je tijd—er zijn geen foute antwoorden.",
+    "backIntro": "← Intro",
+    "you": "Jij",
+    "coach": "Coach",
+    "typing": "Coach typt",
+    "inputLabel": "Je bericht",
+    "placeholder": "Deel je reflectie hier…",
+    "send": "Verstuur",
+    "sending": "Verzenden…",
+    "hintKeys": "Enter om te versturen · Shift+Enter voor een nieuwe regel",
+    "completeTitle": "Dialoog afgerond",
+    "completeBody": "Je reflectierapport staat hierboven. Verken programma's of neem contact op wanneer je wilt.",
+    "newDialogue": "Nieuwe dialoog",
+    "viewPrograms": "Bekijk programma's",
+    "contactUs": "Contact",
+    "fallbackAssistant": "Ik begrijp het. Kun je daar iets meer over vertellen?",
+    "errorAssistant": "Sorry, er ging iets mis. Probeer het nog eens.",
+    "initialAssistant": "Hallo. Ik wil graag met je praten over je leiderschapsreis. Mijn eerste vraag: Denk aan een belangrijke beslissing die je recent nam. Waar lette je op toen je die beslissing nam?"
+  },
+  "Test": {
+    "heroSubtitle": "Zelfontdekking",
+    "heroTitle": "Ken jezelf, leid jezelf",
+    "heroDescription": "Deze oefening nodigt je uit om te pauzeren en te reflecteren. Er zijn geen goede antwoorden—alleen jouw waarheid.",
+    "beforeTitle": "Voordat je begint",
+    "beforeP1": "De oefening duurt ongeveer 10 minuten. Zoek een rustige plek waar je eerlijk kunt zijn.",
+    "beforeLi1": "Antwoord vanuit hoe je natuurlijk bent, niet hoe je denkt dat je zou moeten zijn",
+    "beforeLi2": "Vertrouw op je eerste ingeving—niet te lang nadenken",
+    "beforeLi3": "Er zijn geen foute antwoorden, alleen verschillende paden",
+    "beforePrivacy": "Je antwoorden blijven privé en worden alleen gebruikt voor je persoonlijke inzichten.",
+    "begin": "Start de oefening",
+    "questionProgress": "Vraag {current} van {total}",
+    "previous": "← Vorige",
+    "next": "Volgende →",
+    "viewResults": "Bekijk resultaat",
+    "questions": [
+      {
+        "id": 1,
+        "question": "Bij een moeilijke beslissing neig ik ertoe om:",
+        "options": [
+          { "value": "reflect", "label": "Alleen tijd te nemen om diep te reflecteren" },
+          { "value": "discuss", "label": "Het te bespreken met mensen die ik vertrouw" },
+          { "value": "analyze", "label": "Data te verzamelen en opties te analyseren" },
+          { "value": "intuition", "label": "Op mijn onderbuikgevoel te vertrouwen" }
+        ]
+      },
+      {
+        "id": 2,
+        "question": "Wat geeft mij als leider de meeste energie?",
+        "options": [
+          { "value": "vision", "label": "Een aantrekkelijke visie creëren en delen" },
+          { "value": "people", "label": "Anderen ondersteunen en ontwikkelen" },
+          { "value": "systems", "label": "Systemen en processen bouwen" },
+          { "value": "impact", "label": "Concrete resultaten en impact zien" }
+        ]
+      },
+      {
+        "id": 3,
+        "question": "In conflictmomenten doe ik meestal:",
+        "options": [
+          { "value": "mediate", "label": "Proberen alle perspectieven te begrijpen" },
+          { "value": "direct", "label": "Het direct en helder benoemen" },
+          { "value": "pause", "label": "Afstand nemen en tijd geven" },
+          { "value": "solve", "label": "Zoeken naar oplossingen" }
+        ]
+      },
+      {
+        "id": 4,
+        "question": "Ik voel me het meest op mijn plek wanneer:",
+        "options": [
+          { "value": "authentic", "label": "Ik volledig mezelf kan zijn" },
+          { "value": "growing", "label": "Ik leer en groei" },
+          { "value": "contributing", "label": "Ik bijdraag aan iets betekenisvols" },
+          { "value": "creating", "label": "Ik iets nieuws creëer" }
+        ]
+      },
+      {
+        "id": 5,
+        "question": "Wat waardeer je het meest in leiderschap?",
+        "options": [
+          { "value": "integrity", "label": "Integriteit en consistentie" },
+          { "value": "empathy", "label": "Empathie en begrip" },
+          { "value": "clarity", "label": "Helderheid en richting" },
+          { "value": "courage", "label": "Moed en durf" }
+        ]
+      }
+    ]
+  },
+  "TestResult": {
+    "loading": "Je resultaten laden...",
+    "heroSubtitle": "Je resultaat",
+    "strengthsTitle": "Je sterke punten",
+    "strengthsIntro": "Dit zijn kwaliteiten die van nature in je leiderschap naar voren komen:",
+    "growthTitle": "Groeiranden",
+    "growthIntro": "Onderwerpen om te verkennen op je leiderschapsreis:",
+    "ctaTitle": "Verder op reis",
+    "ctaBody": "Je stijl begrijpen is het begin. Onze programma's helpen je sterke punten te verdiepen en nieuwe vaardigheden te ontwikkelen.",
+    "explorePrograms": "Ontdek programma's",
+    "discussResults": "Bespreek je resultaat",
+    "profiles": {
+      "reflective": {
+        "title": "De reflectieve leider",
+        "description": "Je leidt vanuit diep innerlijk bewustzijn en authenticiteit. Je kracht zit in vertragen, reflecteren en oprechte aanwezigheid.",
+        "strengths": [
+          "Sterk zelfbewustzijn en emotionele intelligentie",
+          "Authentiek in je interacties",
+          "Doordacht besluitvormingsproces",
+          "Creëert ruimte voor anderen om te reflecteren en te groeien"
+        ],
+        "growth": [
+          "Balans tussen reflectie en tijdig handelen",
+          "Je innerlijke proces met anderen delen",
+          "Vertrouwen dat je authentieke stem genoeg is"
+        ]
+      },
+      "analytical": {
+        "title": "De systematische leider",
+        "description": "Je brengt helderheid en structuur in complexiteit. Je ziet patronen, bouwt systemen en denkt strategisch—dat geeft richting aan wie je leidt.",
+        "strengths": [
+          "Sterk analytisch en strategisch denken",
+          "Heldere processen en kaders",
+          "Datagedreven beslissen",
+          "Orde in chaos"
+        ],
+        "growth": [
+          "Balans tussen logica en intuïtie/emotie",
+          "Ruimte voor ambiguïteit en emergentie",
+          "Systems thinking verbinden met menselijke impact"
+        ]
+      },
+      "collaborative": {
+        "title": "De relationele leider",
+        "description": "Je weet dat leiderschap fundamenteel over mensen gaat. Empathie, luisteren en anderen ontwikkelen creëren omgevingen waar iedereen kan floreren.",
+        "strengths": [
+          "Hoge emotionele intelligentie en empathie",
+          "Natuurlijke mentor en ontwikkelaar van mensen",
+          "Psychologische veiligheid",
+          "Sterke, vertrouwensvolle relaties"
+        ],
+        "growth": [
+          "Balans tussen zorg voor anderen en zelfzorg",
+          "Moeilijke beslissingen oefenen",
+          "Gezonde grenzen stellen"
+        ]
+      },
+      "visionary": {
+        "title": "De visionaire leider",
+        "description": "Je ziet kansen die anderen missen en inspireert naar een overtuigende toekomst. Intuïtie en creativiteit helpen teams te verbeelden wat nog niet bestaat.",
+        "strengths": [
+          "Sterke intuïtie en toekomstdenken",
+          "Brengt anderen in beweging",
+          "Comfortabel met ambiguïteit",
+          "Innovatie en verandering"
+        ],
+        "growth": [
+          "Balans tussen visie en uitvoering",
+          "Verankerd blijven in het nu",
+          "Inspiratie omzetten in concrete stappen"
+        ]
+      }
+    }
+  }
+}
