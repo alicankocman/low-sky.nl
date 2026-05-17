@@ -4,10 +4,14 @@ import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { HomeGuidedIntroChat } from '@/components/onboarding/HomeGuidedIntroChat';
 
 const STORAGE_KEY = 'lowsky_leadership_welcome_v1';
 
-type WelcomeState = 'unknown' | 'open' | 'dismissed';
+type WelcomeState = 'unknown' | 'open' | 'dismissed' | 'completed';
+
+const FAB_BUTTON_CLASS =
+  'group flex items-center gap-2.5 border-2 border-sage-300/90 bg-gradient-to-r from-sand-100 to-sand-50 pl-1 pr-3.5 py-1.5 text-ink-900 shadow-[0_18px_40px_-16px_rgba(79,90,73,0.22),0_6px_16px_-8px_rgba(26,26,26,0.08)] backdrop-blur-sm transition-all duration-300 hover:border-sage-500 hover:shadow-[0_22px_44px_-14px_rgba(79,90,73,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-sand-50';
 
 export function LeadershipEntryLayer() {
   const pathname = usePathname();
@@ -18,7 +22,9 @@ export function LeadershipEntryLayer() {
   useEffect(() => {
     try {
       const v = localStorage.getItem(STORAGE_KEY);
-      if (v === 'dismissed' || v === 'completed') {
+      if (v === 'completed') {
+        setWelcome('completed');
+      } else if (v === 'dismissed') {
         setWelcome('dismissed');
       } else {
         setWelcome('open');
@@ -44,8 +50,14 @@ export function LeadershipEntryLayer() {
     } catch {
       /* ignore */
     }
-    setWelcome('dismissed');
+    setWelcome('completed');
   }, []);
+
+  /** Skip the scripted intro anytime — same destination as navbar “AI dialogue”. */
+  const openDialogueNow = useCallback(() => {
+    completeWelcome();
+    router.push('/reflection?start=1');
+  }, [completeWelcome, router]);
 
   const showWelcomeCard =
     hydrated && pathname === '/' && welcome === 'open';
@@ -53,7 +65,11 @@ export function LeadershipEntryLayer() {
   const showFab =
     hydrated &&
     pathname !== '/reflection' &&
-    (pathname !== '/' || welcome === 'dismissed');
+    (pathname !== '/' || welcome === 'dismissed' || welcome === 'completed');
+
+  /** Home: this control only opens the in-page guided intro (reflection via nav or inside the panel). */
+  const homeGuidedFab =
+    pathname === '/' && (welcome === 'dismissed' || welcome === 'completed');
 
   return (
     <>
@@ -67,19 +83,28 @@ export function LeadershipEntryLayer() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-5 left-3 right-3 z-40 md:left-auto md:right-10 md:max-w-[min(22rem,calc(100vw-2rem))] pointer-events-auto"
+            className="fixed bottom-5 left-3 right-3 z-40 md:left-auto md:right-10 md:max-w-[min(26rem,calc(100vw-2rem))] pointer-events-auto max-h-[min(90vh,36rem)]"
           >
-            <div className="relative flex overflow-hidden text-ink-900 border-2 border-sage-300/80 bg-gradient-to-br from-sand-100 via-sand-50 to-sage-50/35 backdrop-blur-md shadow-[0_22px_48px_-18px_rgba(79,90,73,0.28),0_10px_28px_-14px_rgba(26,26,26,0.1)]">
+            <div className="relative flex overflow-hidden max-h-[min(90vh,36rem)] text-ink-900 border-2 border-sage-300/80 bg-gradient-to-br from-sand-100 via-sand-50 to-sage-50/35 backdrop-blur-md shadow-[0_22px_48px_-18px_rgba(79,90,73,0.28),0_10px_28px_-14px_rgba(26,26,26,0.1)]">
               <div
                 className="w-1.5 shrink-0 self-stretch bg-gradient-to-b from-sage-500 via-sage-600 to-sage-700"
                 aria-hidden
               />
 
-              <div className="min-w-0 flex-1 px-5 py-4">
-                <div className="flex items-start justify-between gap-4 mb-2">
-                  <p className="font-sans text-caption font-semibold uppercase tracking-wider text-sage-800">
-                    Guided start
-                  </p>
+              <div className="min-w-0 flex-1 flex flex-col min-h-0">
+                <div className="flex items-start justify-between gap-3 px-5 pt-4 shrink-0">
+                  <div className="min-w-0 pr-2">
+                    <p className="font-sans text-caption font-semibold uppercase tracking-wider text-sage-800">
+                      Guided start
+                    </p>
+                    <button
+                      type="button"
+                      onClick={openDialogueNow}
+                      className="mt-1.5 text-left font-sans text-body-sm text-sage-800 underline-offset-4 hover:text-sage-950 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-sand-50 rounded-sm"
+                    >
+                      Open dialogue
+                    </button>
+                  </div>
                   <button
                     type="button"
                     onClick={dismissWelcome}
@@ -93,39 +118,11 @@ export function LeadershipEntryLayer() {
                   </button>
                 </div>
 
-                <h2
-                  id="leadership-entry-title"
-                  className="font-serif text-h4 font-light leading-snug tracking-tight text-ink-950 mb-2"
-                >
-                  A short reflection
-                </h2>
-                <p
-                  id="leadership-entry-desc"
-                  className="font-sans text-body-sm text-ink-700 leading-relaxed mb-4"
-                >
-                  Answer a few open prompts in your own words—about ten quiet
-                  minutes. You receive a written reflection, not a score, and an
-                  optional program suggestion when you choose to finish.
-                </p>
-
-                <div className="flex flex-col gap-2.5">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      completeWelcome();
-                      router.push('/reflection?start=1');
-                    }}
-                    className="font-sans w-full py-3 px-4 text-body-sm font-semibold tracking-wide text-sand-50 bg-sage-700 border-2 border-sage-700 shadow-sm shadow-sage-900/15 hover:bg-sage-800 hover:border-sage-800 active:bg-sage-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-sand-50"
-                  >
-                    Open dialogue
-                  </button>
-                  <button
-                    type="button"
-                    onClick={dismissWelcome}
-                    className="font-sans text-center text-body-sm text-ink-700 hover:text-ink-950 py-2 transition-colors duration-200 underline-offset-4 hover:underline"
-                  >
-                    Explore the site first
-                  </button>
+                <div className="px-5 pb-4 min-h-0 flex-1 flex flex-col">
+                  <HomeGuidedIntroChat
+                    onDismiss={dismissWelcome}
+                    onBeginReflection={openDialogueNow}
+                  />
                 </div>
               </div>
             </div>
@@ -142,25 +139,46 @@ export function LeadershipEntryLayer() {
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="fixed bottom-5 right-3 z-40 md:right-10 pointer-events-auto"
           >
-            <Link
-              href="/reflection?start=1"
-              className="group flex items-center gap-2.5 border-2 border-sage-300/90 bg-gradient-to-r from-sand-100 to-sand-50 pl-1 pr-3.5 py-1.5 text-ink-900 shadow-[0_18px_40px_-16px_rgba(79,90,73,0.22),0_6px_16px_-8px_rgba(26,26,26,0.08)] backdrop-blur-sm transition-all duration-300 hover:border-sage-500 hover:shadow-[0_22px_44px_-14px_rgba(79,90,73,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2 focus-visible:ring-offset-sand-50"
-            >
-              <span
-                className="flex h-9 w-9 shrink-0 items-center justify-center bg-sage-700 font-serif text-lg font-light leading-none text-sand-50 transition-colors duration-300 group-hover:bg-sage-800"
-                aria-hidden
+            {homeGuidedFab ? (
+              <button
+                type="button"
+                onClick={() => setWelcome('open')}
+                className={FAB_BUTTON_CLASS}
+                aria-label="Open guided start"
               >
-                {'\u201C'}
-              </span>
-              <span className="text-left py-0.5 pr-0.5">
-                <span className="block font-serif text-body-sm font-normal text-ink-950 leading-snug tracking-tight">
-                  Dialogue
+                <span
+                  className="flex h-9 w-9 shrink-0 items-center justify-center bg-sage-700 font-serif text-lg font-light leading-none text-sand-50 transition-colors duration-300 group-hover:bg-sage-800"
+                  aria-hidden
+                >
+                  {'\u201C'}
                 </span>
-                <span className="block font-sans text-caption font-semibold uppercase tracking-wider text-sage-800 mt-0.5">
-                  Reflective chat
+                <span className="text-left py-0.5 pr-0.5">
+                  <span className="block font-serif text-body-sm font-normal text-ink-950 leading-snug tracking-tight">
+                    Guided start
+                  </span>
+                  <span className="block font-sans text-caption font-semibold uppercase tracking-wider text-sage-800 mt-0.5">
+                    Get acquainted
+                  </span>
                 </span>
-              </span>
-            </Link>
+              </button>
+            ) : (
+              <Link href="/reflection?start=1" className={FAB_BUTTON_CLASS}>
+                <span
+                  className="flex h-9 w-9 shrink-0 items-center justify-center bg-sage-700 font-serif text-lg font-light leading-none text-sand-50 transition-colors duration-300 group-hover:bg-sage-800"
+                  aria-hidden
+                >
+                  {'\u201C'}
+                </span>
+                <span className="text-left py-0.5 pr-0.5">
+                  <span className="block font-serif text-body-sm font-normal text-ink-950 leading-snug tracking-tight">
+                    Dialogue
+                  </span>
+                  <span className="block font-sans text-caption font-semibold uppercase tracking-wider text-sage-800 mt-0.5">
+                    AI dialogue
+                  </span>
+                </span>
+              </Link>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
