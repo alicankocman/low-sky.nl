@@ -1,68 +1,52 @@
-'use client'
+'use client';
 
-import { Hero } from '@/components/ui/Hero'
-import { Section } from '@/components/ui/Section'
-import { Button } from '@/components/ui/Button'
-import { Card } from '@/components/ui/Card'
-import { motion } from 'framer-motion'
+import { Hero } from '@/components/ui/Hero';
+import { Section } from '@/components/ui/Section';
+import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 export default function HomePage() {
+  const t = useTranslations('Home');
+
   return (
     <>
-      {/* Hero Section */}
-      <Hero
-        title="Leadership begins with understanding yourself"
-        description="A space for reflection, growth, and intentional transformation. Discover who you are, clarify what matters, and step into the leader you're becoming."
-        centered
-      >
+      <Hero title={t('heroTitle')} description={t('heroDescription')} centered>
         <div className="flex flex-col sm:flex-row gap-6 justify-center">
           <Button href="/programs" variant="primary" size="large">
-            Explore Programs
+            {t('explorePrograms')}
           </Button>
           <Button href="/reflection?start=1" variant="secondary" size="large">
-            Begin Reflection
+            {t('beginReflection')}
           </Button>
         </div>
       </Hero>
 
-      {/* Philosophy Section */}
       <Section
-        subtitle="Our Approach"
-        title="Thoughtful growth, not quick fixes"
-        description="We believe leadership is a personal journey, not a checklist. It requires patience, curiosity, and the courage to look inward before leading outward."
+        subtitle={t('approachSubtitle')}
+        title={t('approachTitle')}
+        description={t('approachDescription')}
         spacing="default"
       >
         <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
           <Card delay={0}>
-            <h3 className="text-h4 font-serif text-ink-950 mb-4 leading-snug">
-              Self-Awareness
-            </h3>
-            <p className="text-body text-ink-600 leading-relaxed">
-              Understanding your patterns, values, and triggers is the foundation of authentic leadership.
-            </p>
+            <h3 className="text-h4 font-serif text-ink-950 mb-4 leading-snug">{t('cardAwarenessTitle')}</h3>
+            <p className="text-body text-ink-600 leading-relaxed">{t('cardAwarenessBody')}</p>
           </Card>
 
           <Card delay={0.1}>
-            <h3 className="text-h4 font-serif text-ink-950 mb-4 leading-snug">
-              Intentionality
-            </h3>
-            <p className="text-body text-ink-600 leading-relaxed">
-              Leading with purpose requires clarity about what you stand for and where you're going.
-            </p>
+            <h3 className="text-h4 font-serif text-ink-950 mb-4 leading-snug">{t('cardIntentionTitle')}</h3>
+            <p className="text-body text-ink-600 leading-relaxed">{t('cardIntentionBody')}</p>
           </Card>
 
           <Card delay={0.2}>
-            <h3 className="text-h4 font-serif text-ink-950 mb-4 leading-snug">
-              Presence
-            </h3>
-            <p className="text-body text-ink-600 leading-relaxed">
-              True influence comes from being fully engaged with yourself, your team, and the moment.
-            </p>
+            <h3 className="text-h4 font-serif text-ink-950 mb-4 leading-snug">{t('cardPresenceTitle')}</h3>
+            <p className="text-body text-ink-600 leading-relaxed">{t('cardPresenceBody')}</p>
           </Card>
         </div>
       </Section>
 
-      {/* Journey Section */}
       <Section background="accent" spacing="default">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div>
@@ -73,7 +57,7 @@ export default function HomePage() {
               transition={{ duration: 0.6 }}
               className="text-h2 lg:text-h1 font-serif text-ink-950 mb-6 leading-tight"
             >
-              Your journey starts with curiosity
+              {t('journeyTitle')}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -82,8 +66,7 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-body-lg text-ink-600 mb-10 leading-relaxed"
             >
-              Before choosing a program, we invite you to explore who you are through our self-discovery assessment. 
-              There are no right answers—only honest reflection.
+              {t('journeyBody')}
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -92,7 +75,7 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <Button href="/reflection?start=1" variant="primary" size="large">
-                Start the Dialogue
+                {t('startDialogue')}
               </Button>
             </motion.div>
           </div>
@@ -105,16 +88,13 @@ export default function HomePage() {
             className="bg-white border border-sage-200 p-12 lg:p-16"
           >
             <blockquote className="text-h4 font-serif text-ink-800 italic leading-relaxed mb-6">
-              "The privilege of a lifetime is to become who you truly are."
+              &quot;{t('quote')}&quot;
             </blockquote>
-            <p className="text-body-sm text-ink-500">
-              — Carl Jung
-            </p>
+            <p className="text-body-sm text-ink-500">— {t('quoteAuthor')}</p>
           </motion.div>
         </div>
       </Section>
 
-      {/* CTA Section */}
       <Section spacing="default" centered>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -123,23 +103,18 @@ export default function HomePage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <h2 className="text-h2 lg:text-h1 font-serif text-ink-950 mb-6 leading-tight">
-            Ready to explore?
-          </h2>
-          <p className="text-body-lg text-ink-600 mb-10 leading-relaxed">
-            Whether you're just beginning your leadership journey or deepening an existing practice, 
-            we're here to support your growth.
-          </p>
+          <h2 className="text-h2 lg:text-h1 font-serif text-ink-950 mb-6 leading-tight">{t('ctaTitle')}</h2>
+          <p className="text-body-lg text-ink-600 mb-10 leading-relaxed">{t('ctaBody')}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button href="/programs" variant="primary" size="large">
-              View Programs
+              {t('viewPrograms')}
             </Button>
             <Button href="/contact" variant="ghost" size="large">
-              Get in Touch
+              {t('getInTouch')}
             </Button>
           </div>
         </motion.div>
       </Section>
     </>
-  )
+  );
 }

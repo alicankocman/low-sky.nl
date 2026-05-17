@@ -1,7 +1,8 @@
 'use client'
 
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 
 interface ProgramCardProps {
   title: string
@@ -20,6 +21,7 @@ export function ProgramCard({
   href,
   delay = 0,
 }: ProgramCardProps) {
+  const t = useTranslations('ProgramCard')
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -40,20 +42,20 @@ export function ProgramCard({
           <div className="flex items-center gap-10 text-body-sm text-ink-500 mb-8">
             <div>
               <span className="text-caption uppercase tracking-wider text-ink-400 block mb-1">
-                Duration
+                {t('duration')}
               </span>
               <span>{duration}</span>
             </div>
             <div>
               <span className="text-caption uppercase tracking-wider text-ink-400 block mb-1">
-                Format
+                {t('format')}
               </span>
               <span>{format}</span>
             </div>
           </div>
 
           <div className="text-sage-700 group-hover:text-sage-900 transition-colors font-medium">
-            Get in Touch →
+            {t('cta')}
           </div>
         </div>
       </Link>
