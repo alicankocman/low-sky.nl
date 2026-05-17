@@ -8,6 +8,37 @@ interface Message {
 // Simplified system prompt for APIFreeLLM
 const SYSTEM_PROMPT = `You are a thoughtful leadership coach having a reflective conversation. Ask open-ended questions about decision-making, responsibility, values, and self-awareness. Be warm and conversational. Keep responses to 1-2 sentences.`;
 
+/** OpenRouter free-only router (no specific paid model id in requests). */
+const OPENROUTER_FREE_ROUTER = 'openrouter/free';
+
+interface LlmRequestConfig {
+  url: string;
+  apiKey: string;
+  model: string;
+  logLabel: string;
+  extraHeaders?: Record<string, string>;
+}
+
+function getLlmConfig(): LlmRequestConfig | null {
+  const openRouterKey = process.env.OPENROUTER_API_KEY?.trim();
+  if (openRouterKey) {
+    const extra: Record<string, string> = {};
+    const referer = process.env.OPENROUTER_HTTP_REFERER?.trim();
+    const title = process.env.OPENROUTER_APP_TITLE?.trim();
+    if (referer) extra['HTTP-Referer'] = referer;
+    if (title) extra['X-OpenRouter-Title'] = title;
+    return {
+      url: 'https://openrouter.ai/api/v1/chat/completions',
+      apiKey: openRouterKey,
+      model: OPENROUTER_FREE_ROUTER,
+      logLabel: 'OpenRouter',
+      extraHeaders: Object.keys(extra).length ? extra : undefined,
+    };
+  }
+
+  return null;
+}
+
 export async function POST(request: NextRequest) {
   let messages: Message[] = [];
   
@@ -34,9 +65,8 @@ export async function POST(request: NextRequest) {
     // Decide if we should complete the conversation
     const shouldComplete = isAskingForConclusion || conversationDepth >= 6;
 
-    // Check if API key is configured
-    const groqApiKey = process.env.GROQ_API_KEY;
-    if (!groqApiKey) {
+    const llm = getLlmConfig();
+    if (!llm) {
       // Fallback to placeholder
       if (shouldComplete) {
         const report = generatePlaceholderReport(messages);
@@ -84,58 +114,57 @@ Write naturally and warmly. No scores or judgments.`;
 Ask a thoughtful follow-up question about their leadership approach, values, or decision-making. Keep it to 1-2 sentences, warm and conversational.`;
     }
 
-    // Call Groq API
     let assistantMessage: string;
-    
+
     try {
-      // Build messages array for Groq (OpenAI-compatible format)
       const systemMessage = {
         role: 'system',
-        content: SYSTEM_PROMPT
+        content: SYSTEM_PROMPT,
       };
 
       const userMessage = {
         role: 'user',
-        content: prompt
+        content: prompt,
       };
 
-      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${llm.apiKey}`,
+        ...llm.extraHeaders,
+      };
+
+      const response = await fetch(llm.url, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${groqApiKey}`
-        },
+        headers,
         body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile', // Fast and capable model
+          model: llm.model,
           messages: [systemMessage, userMessage],
           temperature: 0.7,
           max_tokens: shouldComplete ? 2000 : 300,
-          stream: false
-        })
+          stream: false,
+        }),
       });
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Groq API error:', response.status, errorText);
-        throw new Error(`Groq API request failed: ${response.status}`);
+        console.error(`${llm.logLabel} API error:`, response.status, errorText);
+        throw new Error(`${llm.logLabel} API request failed: ${response.status}`);
       }
 
       const data = await response.json();
-      
+
       if (!data || !data.choices || !data.choices[0] || !data.choices[0].message) {
-        console.error('Invalid Groq API response structure:', data);
-        throw new Error('Invalid Groq API response structure');
+        console.error(`Invalid ${llm.logLabel} API response structure:`, data);
+        throw new Error(`Invalid ${llm.logLabel} API response structure`);
       }
 
       assistantMessage = data.choices[0].message.content || '';
-      
-      if (!assistantMessage) {
-        throw new Error('Empty response from Groq API');
-      }
 
+      if (!assistantMessage) {
+        throw new Error(`Empty response from ${llm.logLabel} API`);
+      }
     } catch (apiError) {
-      // Fallback to placeholder on any API error
-      console.warn('Groq API call failed, using placeholder:', apiError);
+      console.warn(`${llm.logLabel} API call failed, using placeholder:`, apiError);
       assistantMessage = shouldComplete 
         ? generatePlaceholderReport(messages).content
         : generatePlaceholderQuestion(conversationDepth);
