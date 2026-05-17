@@ -146,7 +146,7 @@ export function Navigation() {
                           href={link.href}
                           onClick={closeMenu}
                           className={`
-                            block px-3 py-2.5 text-lg transition-colors
+                            block px-3 py-2.5 text-lg text-center transition-colors
                             ${isActive ? 'text-ink-900 bg-sand-100' : 'text-ink-600 hover:text-ink-900 hover:bg-sand-100/50'}
                           `}
                         >
@@ -157,8 +157,8 @@ export function Navigation() {
                   })}
                 </ul>
 
-                <div className="mt-4 px-3">
-                  <LocaleSwitcher onNavigate={closeMenu} />
+                <div className="mt-4">
+                  <LocaleSwitcher variant="inline" onNavigate={closeMenu} />
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-sand-200/60 space-y-2">
