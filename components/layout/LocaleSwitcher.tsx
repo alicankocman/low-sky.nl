@@ -36,6 +36,11 @@ type LocaleSwitcherProps = {
   menuAlign?: 'left' | 'right';
   /** e.g. close mobile drawer after picking a locale */
   onNavigate?: () => void;
+  /**
+   * `dropdown` — floating panel (nav desktop, footer).
+   * `inline` — expands in document flow (mobile drawer: avoids overlapping CTAs below).
+   */
+  variant?: 'dropdown' | 'inline';
 };
 
 export function LocaleSwitcher({
@@ -43,12 +48,14 @@ export function LocaleSwitcher({
   compact = false,
   menuAlign = 'right',
   onNavigate,
+  variant = 'dropdown',
 }: LocaleSwitcherProps) {
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations('Nav');
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
+  const isInline = variant === 'inline';
 
   useEffect(() => {
     if (!open) return;
@@ -72,8 +79,48 @@ export function LocaleSwitcher({
   const labelFor = (loc: string) => (loc === 'en' ? t('langEn') : t('langNl'));
   const codeFor = (loc: string) => loc.toUpperCase();
 
+  const list = (
+    <ul
+      role="listbox"
+      aria-label={t('language')}
+      className={
+        isInline
+          ? 'mt-2 w-full rounded-md border border-sand-200 bg-white py-1 shadow-sm'
+          : `absolute top-[calc(100%+6px)] z-[60] min-w-[10rem] py-1 rounded-md border border-sand-200 bg-white shadow-[0_12px_32px_-12px_rgba(26,26,26,0.18)] ${
+              menuAlign === 'left' ? 'left-0' : 'right-0'
+            }`
+      }
+    >
+      {routing.locales.map((loc) => {
+        const active = loc === locale;
+        return (
+          <li key={loc} role="option" aria-selected={active}>
+            <Link
+              href={pathname}
+              locale={loc}
+              onClick={() => {
+                setOpen(false);
+                onNavigate?.();
+              }}
+              className={`
+                flex items-center gap-3 px-3 py-2.5 text-sm transition-colors
+                ${isInline ? 'justify-center' : 'justify-between'}
+                ${active ? 'bg-sage-50 text-ink-900 font-medium' : 'text-ink-600 hover:bg-sand-50 hover:text-ink-900'}
+              `}
+            >
+              <span>{labelFor(loc)}</span>
+              <span className="text-caption text-ink-400 tabular-nums">
+                {codeFor(loc)}
+              </span>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+
   return (
-    <div ref={wrapRef} className={`relative ${className}`}>
+    <div ref={wrapRef} className={`${isInline ? 'w-full' : 'relative'} ${className}`}>
       <button
         type="button"
         onClick={(e) => {
@@ -84,53 +131,32 @@ export function LocaleSwitcher({
         aria-haspopup="listbox"
         aria-label={`${t('language')}: ${labelFor(locale)}`}
         className={`
-          flex items-center gap-1.5 rounded-md text-ink-600 hover:text-ink-900
+          flex items-center rounded-md text-ink-600 hover:text-ink-900
           border border-sand-200/90 hover:border-sand-300 bg-white/80 hover:bg-white
           transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500
           focus-visible:ring-offset-2 focus-visible:ring-offset-sand-50
-          ${compact ? 'px-2 py-1 text-xs' : 'px-2.5 py-1.5 text-sm'}
+          ${compact ? 'px-2 py-1 text-xs gap-1.5' : 'px-2.5 py-1.5 text-sm gap-1.5'}
+          ${
+            isInline
+              ? 'relative w-full min-h-[2.75rem] px-4 text-base justify-center'
+              : 'gap-1.5'
+          }
         `}
       >
-        <GlobeIcon className="shrink-0 text-sage-700 opacity-90" />
-        <span className="font-medium tabular-nums tracking-wide">{codeFor(locale)}</span>
+        <span className="flex items-center gap-2">
+          <GlobeIcon className="shrink-0 text-sage-700 opacity-90" />
+          <span className="font-medium tabular-nums tracking-wide">{codeFor(locale)}</span>
+        </span>
         <span className="sr-only">{labelFor(locale)}</span>
-        <span className="text-ink-400 text-[0.65rem] leading-none" aria-hidden>
+        <span
+          className={`text-ink-400 text-[0.65rem] leading-none ${isInline ? 'absolute right-4 top-1/2 -translate-y-1/2' : ''}`}
+          aria-hidden
+        >
           {open ? '▴' : '▾'}
         </span>
       </button>
 
-      {open && (
-        <ul
-          role="listbox"
-          aria-label={t('language')}
-          className={`absolute top-[calc(100%+6px)] z-[60] min-w-[10rem] py-1 rounded-md border border-sand-200 bg-white shadow-[0_12px_32px_-12px_rgba(26,26,26,0.18)] ${
-            menuAlign === 'left' ? 'left-0' : 'right-0'
-          }`}
-        >
-          {routing.locales.map((loc) => {
-            const active = loc === locale;
-            return (
-              <li key={loc} role="option" aria-selected={active}>
-                <Link
-                  href={pathname}
-                  locale={loc}
-                  onClick={() => {
-                    setOpen(false);
-                    onNavigate?.();
-                  }}
-                  className={`
-                    flex items-center justify-between gap-3 px-3 py-2 text-sm transition-colors
-                    ${active ? 'bg-sage-50 text-ink-900 font-medium' : 'text-ink-600 hover:bg-sand-50 hover:text-ink-900'}
-                  `}
-                >
-                  <span>{labelFor(loc)}</span>
-                  <span className="text-caption text-ink-400 tabular-nums">{codeFor(loc)}</span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      {open && list}
     </div>
   );
 }
