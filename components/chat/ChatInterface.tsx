@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, type ReactElement } from 'react';
 import { Button } from '@/components/ui/Button';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -104,11 +105,12 @@ function formatMessage(text: string) {
 }
 
 export function ChatInterface({ onReset }: ChatInterfaceProps) {
+  const t = useTranslations('Chat');
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello. I'd like to talk with you about your leadership journey. My first question: Think of an important decision you made recently. What did you pay attention to when making that decision?"
-    }
+      content: t('initialAssistant'),
+    },
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -231,14 +233,14 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
       } else {
         setMessages(prev => [...prev, { 
           role: 'assistant', 
-          content: data.message || 'I understand. Could you tell me more?'
+          content: data.message || t('fallbackAssistant')
         }]);
       }
     } catch (error) {
       console.error('Chat error:', error);
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: 'Sorry, an error occurred. Please try again.'
+        content: t('errorAssistant')
       }]);
     } finally {
       setIsLoading(false);
@@ -269,13 +271,13 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
               />
               <div className="min-w-0">
                 <p className="text-caption font-medium uppercase tracking-wide text-sage-700 mb-1">
-                  AI · Leadership reflection
+                  {t('kicker')}
                 </p>
                 <h2 className="text-h4 sm:text-h3 text-ink-900 font-serif leading-tight">
-                  Dialogue
+                  {t('title')}
                 </h2>
                 <p className="text-caption text-ink-600 mt-1 max-w-md">
-                  One message at a time. Take your time—there are no wrong answers.
+                  {t('subtitle')}
                 </p>
               </div>
             </div>
@@ -285,7 +287,7 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
                 onClick={onReset}
                 className="shrink-0 text-body-sm text-ink-500 hover:text-ink-900 transition-colors px-3 py-2 border border-sand-200 hover:border-sand-300 bg-white"
               >
-                ← Intro
+                {t('backIntro')}
               </button>
             )}
           </div>
@@ -319,7 +321,7 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
                     message.role === 'user' ? 'text-sage-800' : 'text-ink-500'
                   }`}
                 >
-                  {message.role === 'user' ? 'You' : 'Coach'}
+                  {message.role === 'user' ? t('you') : t('coach')}
                 </span>
                 <div
                   className={`max-w-[92%] sm:max-w-[85%] px-4 sm:px-5 py-3.5 sm:py-4 border-2 ${
@@ -348,11 +350,11 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
                 className="flex flex-col items-start"
               >
                 <span className="text-caption font-medium uppercase tracking-wide text-ink-500 mb-1.5">
-                  Coach
+                  {t('coach')}
                 </span>
                 <div className="bg-white border-2 border-sand-200 shadow-sm px-5 py-4">
                   <div className="flex space-x-2 items-center">
-                    <span className="sr-only">Coach is typing</span>
+                    <span className="sr-only">{t('typing')}</span>
                     <div
                       className="w-2 h-2 bg-sage-500 rounded-full animate-bounce"
                       style={{ animationDelay: '0ms' }}
@@ -377,7 +379,7 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
           <div className="bg-white border-t-2 border-sand-200 px-3 sm:px-6 py-4 flex-shrink-0">
             <div className="max-w-2xl mx-auto">
               <label htmlFor="leadership-chat-input" className="sr-only">
-                Your message
+                {t('inputLabel')}
               </label>
               <div className="flex flex-col sm:flex-row gap-3 sm:items-end border-2 border-sand-200 focus-within:border-sage-500 transition-colors bg-sand-50/30 p-3 sm:p-3">
                 <textarea
@@ -385,7 +387,7 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Share your reflection here…"
+                  placeholder={t('placeholder')}
                   className="flex-1 resize-none border-0 bg-transparent px-1 py-2 text-body text-ink-900 placeholder:text-ink-400 focus:outline-none focus:ring-0 min-h-[5.5rem] sm:min-h-[4.5rem]"
                   rows={3}
                   disabled={isLoading}
@@ -397,12 +399,12 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
                     variant="primary"
                     size="default"
                   >
-                    {isLoading ? 'Sending…' : 'Send'}
+                    {isLoading ? t('sending') : t('send')}
                   </Button>
                 </div>
               </div>
               <p className="text-caption text-ink-500 mt-2 px-0.5">
-                Enter to send · Shift+Enter for a new line
+                {t('hintKeys')}
               </p>
             </div>
           </div>
@@ -417,21 +419,21 @@ export function ChatInterface({ onReset }: ChatInterfaceProps) {
           >
             <div className="max-w-2xl mx-auto text-center space-y-4">
               <p className="text-body-lg text-ink-900 font-medium">
-                Dialogue complete
+                {t('completeTitle')}
               </p>
               <p className="text-body text-ink-600">
-                Your reflection report is above. Explore programs or reach out when you are ready.
+                {t('completeBody')}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-2">
                 <Button href="/programs" variant="primary" size="large">
-                  View Programs
+                  {t('viewPrograms')}
                 </Button>
                 <Button href="/contact" variant="secondary" size="large">
-                  Contact Us
+                  {t('contactUs')}
                 </Button>
                 {onReset && (
                   <Button onClick={onReset} variant="ghost" size="large">
-                    New dialogue
+                  {t('newDialogue')}
                   </Button>
                 )}
               </div>

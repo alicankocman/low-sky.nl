@@ -1,22 +1,24 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
-
-const links = [
-  { href: '/', label: 'Home' },
-  { href: '/programs', label: 'Programs' },
-  { href: '/reflection', label: 'Reflection' },
-]
+import { useState } from 'react';
+import { Link, usePathname } from '@/i18n/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
 
 export function Navigation() {
-  const pathname = usePathname()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const t = useTranslations('Nav');
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
-  const closeMenu = () => setIsMenuOpen(false)
+  const links = [
+    { href: '/', label: t('home') },
+    { href: '/programs', label: t('programs') },
+    { href: '/reflection', label: t('reflection') },
+  ] as const;
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <>
@@ -28,27 +30,21 @@ export function Navigation() {
       >
         <div className="max-w-container mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between py-4">
-            {/* Logo */}
-            <Link 
-              href="/" 
-              className="relative z-50 group flex-shrink-0"
-              onClick={closeMenu}
-            >
+            <Link href="/" className="relative z-50 group flex-shrink-0" onClick={closeMenu}>
               <div className="flex flex-col gap-1">
                 <span className="text-xl font-serif text-ink-900 group-hover:text-ink-700 transition-colors leading-none tracking-tight">
                   Low Sky
                 </span>
                 <span className="text-xs text-ink-600 leading-none tracking-wide hidden lg:block font-medium">
-                  Center For Human & Context Development
+                  {t('brandSubtitle')}
                 </span>
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-6">
               <ul className="flex items-center gap-7">
                 {links.map((link) => {
-                  const isActive = pathname === link.href
+                  const isActive = pathname === link.href;
                   return (
                     <li key={link.href}>
                       <Link
@@ -67,31 +63,33 @@ export function Navigation() {
                         )}
                       </Link>
                     </li>
-                  )
+                  );
                 })}
               </ul>
-              
-              <div className="flex items-center gap-3">
+
+              <LocaleSwitcher className="border-l border-sand-200/80 pl-4 ml-1 shrink-0" />
+
+              <div className="flex items-center gap-3 border-l border-sand-200/80 pl-4">
                 <Link
                   href="/reflection?start=1"
                   className="px-5 py-2 text-sm font-medium text-sand-50 bg-sage-700 border border-sage-700 hover:bg-sage-800 hover:border-sage-800 transition-all"
                 >
-                  AI dialogue
+                  {t('aiDialogue')}
                 </Link>
                 <Link
                   href="/contact"
                   className="px-5 py-2 text-sm text-ink-900 border border-ink-900/20 hover:border-ink-900/40 hover:bg-sand-100 transition-all"
                 >
-                  Contact
+                  {t('contact')}
                 </Link>
               </div>
             </div>
 
-            {/* Mobile Hamburger */}
             <button
               onClick={toggleMenu}
               className="md:hidden relative z-50 w-8 h-8 flex flex-col items-center justify-center gap-1.5"
-              aria-label="Toggle menu"
+              aria-label={t('toggleMenu')}
+              type="button"
             >
               <motion.span
                 animate={isMenuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
@@ -113,7 +111,6 @@ export function Navigation() {
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -125,7 +122,7 @@ export function Navigation() {
             onClick={closeMenu}
           >
             <div className="absolute inset-0 bg-ink-950/20 backdrop-blur-sm" />
-            
+
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -137,7 +134,7 @@ export function Navigation() {
               <nav className="max-w-container mx-auto px-6 py-5">
                 <ul className="space-y-px">
                   {links.map((link, index) => {
-                    const isActive = pathname === link.href
+                    const isActive = pathname === link.href;
                     return (
                       <motion.li
                         key={link.href}
@@ -156,24 +153,28 @@ export function Navigation() {
                           {link.label}
                         </Link>
                       </motion.li>
-                    )
+                    );
                   })}
                 </ul>
-                
+
+                <div className="mt-4 px-3">
+                  <LocaleSwitcher onNavigate={closeMenu} />
+                </div>
+
                 <div className="mt-4 pt-3 border-t border-sand-200/60 space-y-2">
                   <Link
                     href="/reflection?start=1"
                     onClick={closeMenu}
                     className="block w-full px-5 py-2.5 text-center text-base font-medium text-sand-50 bg-sage-700 border border-sage-700 hover:bg-sage-800 transition-all"
                   >
-                    AI dialogue
+                    {t('aiDialogue')}
                   </Link>
                   <Link
                     href="/contact"
                     onClick={closeMenu}
                     className="block w-full px-5 py-2.5 text-center text-base text-ink-900 border border-ink-900/20 hover:border-ink-900/40 hover:bg-sand-100 transition-all"
                   >
-                    Contact
+                    {t('contact')}
                   </Link>
                 </div>
               </nav>
@@ -182,5 +183,5 @@ export function Navigation() {
         )}
       </AnimatePresence>
     </>
-  )
+  );
 }
